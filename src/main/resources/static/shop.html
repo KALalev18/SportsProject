@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Construction</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+    nav{
+      position: relative;
+      margin: 25px auto 0;
+      width: 570px;
+      height: 50px;
+      border-radius: 8px;
+      font-size: 0;
+      box-shadow: 0 2px 3px 0 rgba(0,0,0,.1);
+    }
+    nav a{
+      font-size: 15px;
+      text-transform: uppercase;
+      color: black;
+      text-decoration: none;
+      line-height: 50px;
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      text-align: center;
+    }
+    nav .animation{
+      position: absolute;
+      height: 5px;
+      bottom: 0;
+      z-index: 0;
+      background: #32CD32;
+      border-radius: 8px;
+      transition: all .5s ease 0s;
+    }
+    nav a:nth-child(1){
+      width: 100px;
+    }
+    nav a:nth-child(1):hover~.animation{
+      width: 100px;
+      left: 0;
+    }
+    nav a:nth-child(2){
+      width: 110px;
+    }
+    nav .start-home, a:nth-child(2):hover~.animation{
+      width: 110px;
+      left: 100px;
+    }
+    nav a:nth-child(3){
+      width: 100px;
+    }
+    nav a:nth-child(3):hover~.animation{
+      width: 110px;
+      left: 210px;
+    }
+    nav a:nth-child(4){
+      width: 130px;
+    }
+    nav a:nth-child(4):hover~.animation{
+      width: 120px;
+      left: 325px;
+    }
+    nav a:nth-child(5){
+      width: 120px;
+      left: 0
+    }
+    nav a:nth-child(5):hover~.animation{
+      width: 120px;
+      left: 450px;
+    }
+
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .input-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #e26d5c;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      color: white;
+      box-shadow: 0.25rem 0.25rem 0rem black;
+    }
+
+    input {
+      margin: 0 0.5rem 0 0.5rem;
+      width: 100%;
+      border: none;
+      outline: none;
+      background: #e26d5c;
+      color: white;
+    }
+
+    ::placeholder {
+      color: #f0b2a8;
+    }
+
+    /* Style the body */
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+    }
+
+    /* Header/logo Title */
+    .header {
+      padding: 5px;
+      text-align: center;
+      background: #32CD32;
+      color: black;
+    }
+
+    /* Increase the font size of the heading */
+    .header h1 {
+      font-size: 30px;
+    }
+
+    /* Style the top navigation bar */
+    .navbar {
+      overflow: hidden;
+      background-color: #333;
+    }
+
+    /* Style the navigation bar links */
+    .navbar a {
+      float: left;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 20px;
+      text-decoration: none;
+    }
+
+    /* Right-aligned link */
+    .navbar a.right {
+      float: right;
+    }
+
+    /* Change color on hover */
+    .navbar a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+    @media screen and (max-width: 700px) {
+      .row {
+        flex-direction: column;
+      }
+    }
+
+    @media screen and (max-width: 400px) {
+      .navbar a {
+        float: none;
+        width: 100%;
+      }
+    }
+
+    .card button {
+      border: none;
+      outline: 0;
+      padding: 12px;
+      color: white;
+      background-color: #000;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
+    }
+
+    .card button:hover {
+      opacity: 0.7;
+    }
+    .search-container {
+      display: flex;
+      align-items: center;
+      text-align: right;
+    }
+
+    .search-container form {
+      display: flex;
+      width: 20%;
+    }
+
+    .search-container input[type=text] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    .search-container button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 12px;
+      border-radius: 4px;
+      margin-left: 10px;
+    }
+
+    .search-container button:hover {
+      background-color: #45a049;
+    }
+
+    @media screen and (max-width: 600px) {
+      .search-container input[type=text] {
+        width: 70%;
+      }
+      .search-container button {
+        width: 30%;
+        margin-left: 0;
+      }
+    }
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      max-width: 300px;
+      text-align: center;
+      font-family: arial;
+      display: inline-block;
+    }
+
+    .price {
+      color: grey;
+      font-size: 22px;
+    }
+
+    .card button {
+      border: none;
+      outline: 0;
+      padding: 12px;
+      color: white;
+      background-color: #000;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
+    }
+
+    .card button:hover {
+      opacity: 0.7;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Заедно към развитието на спорта</h1>
+  <div class="input-wrapper">
+    <div class="fa fa-search"></div>
+    <input type="text" placeholder="Search" />
+    <div class="fa fa-times"></div>
+  </div>
+</div>
+
+<nav>
+  <a href="start.html">Начало</a>
+  <a href="shop.html">Магазин</a>
+  <a href="construction.html">Игрища</a>
+  <a href="news.html">Новини</a>
+  <a href="about.html">За нас</a>
+  <div class="animation start-home"></div>
+</nav>
+<div class="row">
+  <h1>Football</h1>
+  <hr>
+  <br>
+  <div class="card">
+    <img src="https://contents.mediadecathlon.com/p2154058/k$0a841450eaf72784eefd1049001d0a72/prod.jpg?format=auto&quality=40&f=250x180" alt="Denim Jeans" height="150" width = "150">
+    <h1>Football Ball</h1>
+    <p class="price">$19.99</p>
+    <p>High-quality football ball, which is budget and classic one.</p>
+    <label for="size">Select size:</label>
+    <select name="size">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+    <p><button>Add to Cart</button></p>
+  </div>
+  <div class="card">
+    <img src="https://contents.mediadecathlon.com/p1609859/k$60949b527a9b662dd66080915b0a2526/sq/adult-football-shirt-essential-blue.jpg?format=auto&f=800x0" alt="Denim Jeans" height="150" width = "150">
+    <h1>Football T-shirt</h1>
+    <p class="price">$12.99</p>
+    <p>Kipsta football T-shirt, which is made by ecoproducts.</p>
+    <label for="size">Select size:</label>
+    <select name="size" id="size">
+      <option value="S">S</option>
+      <option value="M">M</option>
+      <option value="L">L</option>
+      <option value="XL">XL</option>
+      <option value="XXL">XXL</option>
+    </select>
+    <p><button>Add to Cart</button></p>
+  </div>
+  <div class="card">
+    <img src="https://contents.mediadecathlon.com/p1273536/k$e25390a181a013b3bf1513c03b5658af/prod.jpg?format=auto&quality=40&f=250x180" alt="Denim Jeans" height="150" width = "150">
+    <h1>Football Shoes</h1>
+    <p class="price">$39.99</p>
+    <p>Football shoes for natural grass football activities.</p>
+    <label for="size">Select size:</label>
+    <select name="size">
+      <option value="34">34</option>
+      <option value="35">35</option>
+      <option value="36">36</option>
+      <option value="37">37</option>
+      <option value="38">38</option>
+      <option value="39">39</option>
+      <option value="40">40</option>
+      <option value="41">41</option>
+      <option value="42">42</option>
+      <option value="43">43</option>
+      <option value="44">44</option>
+      <option value="45">45</option>
+      <option value="46">46</option>
+    </select>
+    <p><button>Add to Cart</button></p>
+  </div>
+  <div class="card">
+    <img src="https://contents.mediadecathlon.com/p1610710/k$cdfdb78b6fab03e3ce7dfc9a16d05afa/detski-futbolni-chorapi-f100-beli.jpg?format=auto&quality=40&f=800x800" alt="Denim Jeans" height="150" width = "150">
+    <h1>Football Socks</h1>
+    <p class="price">$9.99</p>
+    <p>Football socks, which assures you a comofort in your shoes.</p>
+    <label for="size">Select size:</label>
+    <select name="size">
+      <option value="28-32">28-32</option>
+      <option value="33-37">33-37</option>
+      <option value="38-42">38-42</option>
+      <option value="43-46">43-46</option>
+    </select>
+    <p><button>Add to Cart</button></p>
+  </div>
+  <div class="card">
+    <img src="https://www.jadberg.com/files/e/12463/jadberg-football-goalie-gloves-tg1-fyellow-1a.jpeg" alt="Denim Jeans" height="150" width = "150">
+    <h1>Football Gloves</h1>
+    <p class="price">$22.99</p>
+    <p>High-quality football gloves for football outdoor activities.</p>
+    <label for="size">Select size:</label>
+    <select name="size">
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+    </select>
+    <p><button>Add to Cart</button></p>
+  </div>
+  <div class="card">
+    <br>
+    <img src="https://contents.mediadecathlon.com/p1604448/k$369d15746c23aad4fe56d71c4cb8fde4/futbolni-shorti-f100-oranzhevi.jpg?format=auto&quality=40&f=800x800" alt="Denim Jeans" height="100" width = "150">
+    <h1>Football Shorts</h1>
+    <p class="price">$15.99</p>
+    <p>Football shorts that makes the football game more comfortable.</p>
+    <label for="size">Select size:</label>
+    <select name="size">
+      <option value="S">S</option>
+      <option value="M">M</option>
+      <option value="L">L</option>
+      <option value="XL">XL</option>
+      <option value="XXL">XXL</option>
+    </select>
+    <p><button>Add to Cart</button></p>
+  </div>
+  <div class="card">
+    <br>
+    <img src="https://contents.mediadecathlon.com/p1818463/k$baa228586f5fbb6b704d1cd0bd249caf/sporten-sak-essential-55-l-tamnosin.jpg?format=auto&quality=40&f=800x800" alt="Denim Jeans" height="80" width = "100">
+    <h1>Sack</h1>
+    <p class="price">$25.99</p>
+    <p>Sport sack that will provide you with space to get your equipment wherever you want.</p>
+    <br>
+    <p><button>Add to Cart</button></p>
+  </div>
+  <h1>Basketball</h1>
+  <hr>
+  <br>
+  <div class="card">
+    <img src="https://contents.mediadecathlon.com/p1914261/k$b8c46165714a1d01ff25f648a6a3a0a3/prod.jpg?format=auto&quality=40&f=250x180" alt="Denim Jeans" height="150" width = "150">
+    <h1>Basketball ball</h1>
+    <p class="price">$12.99</p>
+    <p>High-quality basketball ball, which is budget one.</p>
+    <label for="size">Select size:</label>
+    <select name="size">
+      <option value="5">5</option>
+      <option value="7">7</option>
+    </select>
+    <p><button>Add to Cart</button></p>
+  </div>
+  <div class="card">
+    <img src="https://contents.mediadecathlon.com/p1418525/k$1e51775edf981c19c76b24c44ea66752/basketbolen-kosh-mini-b-deluxe-za-stena.jpg?format=auto&quality=40&f=200x200" alt="Denim Jeans" height="150" width = "150">
+    <h1>Basketball hoop</h1>
+    <p class="price">$29.99</p>
+    <p>Basketball hoop for your room to practice shooting.</p>
+    <br>
+    <p><button>Add to Cart</button></p>
+  </div>
+  <div class="card">
+    <img src="https://contents.mediadecathlon.com/p1993760/k$2af6f091a73b45f2325dcc185a7ce974/detski-nalakatnik-za-basketbol-ep500-dualshock-nba-cheren.jpg?format=auto&quality=40&f=200x200" alt="Denim Jeans" height="150" width = "150">
+    <h1>Elbow protector</h1>
+    <p class="price">$12.49</p>
+    <p>Protector for your elbow while you are playing basketball.</p>
+    <br>
+    <p><button>Add to Cart</button></p>
+  </div>
+  <div class="card">
+    <img src="https://contents.mediadecathlon.com/p1759959/k$f820b4dff7a887990d1cce8de81cabf0/prod.jpg?format=auto&quality=40&f=250x180" alt="Denim Jeans" height="150" width = "150">
+    <h1>Training cones</h1>
+    <p class="price">$10.49</p>
+    <p>Cones for training your basketball dribble and play.</p>
+    <br>
+    <p><button>Add to Cart</button></p>
+  </div>
+  <div class="card">
+    <img src="https://contents.mediadecathlon.com/p1353702/k$854c148bd4e279e3843ca0b491c137b8/prod.jpg?format=auto&quality=40&f=250x180" alt="Denim Jeans" height="150" width = "150">
+    <h1>Basketball ladder</h1>
+    <p class="price">$24.99</p>
+    <p>Basketball ladder to train your dribble while with the ball.</p>
+    <br>
+    <p><button>Add to Cart</button></p>
+  </div>
+  <h1>Volleyball</h1>
+  <hr>
+  <br>
+  <div class="card">
+    <img src="https://contents.mediadecathlon.com/p2094757/k$212d68d5439462c07cac3f3d784f8be7/voleybolna-topka-v100-razmer-5-tyurkoaz.jpg?format=auto&quality=40&f=200x200" alt="Volley" height="150" width = "150">
+    <h1>Volleyball ball</h1>
+    <p class="price">$9.99</p>
+    <p>Volleyball ball for outdoor and indoor activities</p>
+    <p><button>Add to Cart</button></p>
+  </div>
+  <div class="card">
+    <img src="https://contents.mediadecathlon.com/p2120713/k$71f052d288c48229ce9db5a1fb7d9b5f/mrezha-za-voleybol-na-otkrito.jpg?format=auto&quality=40&f=200x200" alt="Volley" height="150" width = "150">
+    <h1>Volleyball net</h1>
+    <p class="price">$59.99</p>
+    <p>Volleyball net to play outdoors you grass moron.</p>
+    <p><button>Add to Cart</button></p>
+  </div>
+  <div class="card">
+    <img src="https://contents.mediadecathlon.com/p1298611/k$1b09ce02464f50869ad8146cc2e1ef4b/nalakatnik-mid-500-cheren.jpg?format=auto&quality=40&f=200x200" alt="Volley" height="150" width = "150">
+    <h1>Volleyball wrist</h1>
+    <p class="price">$12.99</p>
+    <p>Volleyball T-shirt for training activities moron</p>
+    <p><button>Add to Cart</button></p>
+  </div>
+  <div class="card">
+    <img src="https://contents.mediadecathlon.com/p2309200/k$e6d5147431ed1522d03ca561f8f666d4/mazhka-teniska-za-trenirovki-po-voleybol-cherna.jpg?format=auto&quality=40&f=200x200" alt="Volley" height="150" width = "150">
+    <h1>Volleyball T-shirt</h1>
+    <p class="price">$9.99</p>
+    <p>Volleyball ball for outdoor activities yes yes</p>
+    <p><button>Add to Cart</button></p>
+  </div>
+  <h1>Other products</h1>
+  <hr>
+  <br>
+  <div class="card">
+    <img src="https://contents.mediadecathlon.com/p1891284/k$5b5025653beb994a09e202c0d05652a9/mrezha-za-16-topki-cherna.jpg?format=auto&quality=40&f=200x200" alt="Volley" height="150" width = "150">
+    <h1>Balls net sack</h1>
+    <p class="price">$16.99</p>
+    <p>Net sack to collect all the balls at one place</p>
+    <p><button>Add to Cart</button></p>
+  </div>
+  <div class="card">
+    <img src="https://contents.mediadecathlon.com/p133929/k$e8edce37718cb61a97bd51952cb3005e/stoyka-za-6-butilki-cherna.jpg?format=auto&quality=40&f=200x200" alt="Volley" height="150" width = "150">
+    <h1>Bottle holder</h1>
+    <p class="price">$15.99</p>
+    <p>Something to hos thing irngrignefsefrgrgerh</p>
+    <p><button>Add to Cart</button></p>
+  </div>
+  <div class="card">
+    <img src="https://contents.mediadecathlon.com/p2326804/k$a26419771f137262cf2e7d8ddaf71c19/nakolenki-za-voleybol-vkp500-tamnosini.jpg?format=auto&quality=40&f=200x200" alt="Volley" height="150" width = "150">
+    <h1>Sport nakolenki</h1>
+    <p class="price">$9.99</p>
+    <p>Volleyball ball for outdoor activities yes yes dads a</p>
+    <p><button>Add to Cart</button></p>
+  </div>
+</div>
+
+</body>
+</html>
