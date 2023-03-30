@@ -77,30 +77,6 @@
       box-sizing: border-box;
     }
 
-    .input-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #e26d5c;
-      padding: 0.5rem;
-      border-radius: 0.5rem;
-      color: white;
-      box-shadow: 0.25rem 0.25rem 0rem black;
-    }
-
-    input {
-      margin: 0 0.5rem 0 0.5rem;
-      width: 100%;
-      border: none;
-      outline: none;
-      background: #e26d5c;
-      color: white;
-    }
-
-    ::placeholder {
-      color: #f0b2a8;
-    }
-
     /* Style the body */
     body {
       font-family: Arial, Helvetica, sans-serif;
@@ -257,17 +233,58 @@
       border: none;
     }
 
+    .search-container button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 12px;
+      border-radius: 4px;
+      margin-left: 10px;
+    }
+
+    .search-container button:hover {
+      background-color: #45a049;
+    }
+
+    form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      border: none;
+      border-radius: 5px 0 0 5px;
+      width: 70%;
+    }
+
+    button {
+      padding: 10px;
+      border: none;
+      background-color: #4CAF50;
+      color: #fff;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+    }
+
+    #results {
+      margin-top: 20px;
+    }
+
   </style>
 </head>
 <body>
 
 <div class="header">
-  <h1>Заедно към развитието на спорта</h1>
-  <div class="input-wrapper">
-    <div class="fa fa-search"></div>
-    <input type="text" placeholder="Search" />
-    <div class="fa fa-times"></div>
-  </div>
+  <h1>Sports</h1>
+  <form>
+    <input type="text" id="searchInput" placeholder="Search...">
+    <button type="button" id="searchBtn">Search</button>
+  </form>
+  <div id="results"></div>
+  <br>
 </div>
 
 <nav>
@@ -491,6 +508,41 @@
     <p><button>Add to Cart</button></p>
   </div>
 </div>
+<script>
+  const searchBtn = document.getElementById("searchBtn");
+  const searchInput = document.getElementById("searchInput");
+  const results = document.getElementById("results");
 
+  searchBtn.addEventListener("click", () => {
+    const query = searchInput.value.toLowerCase();
+    results.innerHTML = "";
+
+    fetchPage("about.html", query);
+    fetchPage("start.html", query);
+    fetchPage("construction.html", query);
+    fetchPage("news.html", query);
+    fetchPage("shop.html", query);
+  });
+
+  function fetchPage(url, query) {
+    fetch(url)
+            .then(response => response.text())
+            .then(html => {
+              const doc = new DOMParser().parseFromString(html, "text/html");
+              const allItems = doc.querySelectorAll(".searchable");
+
+              allItems.forEach((item) => {
+                if (item.textContent.toLowerCase().includes(query)) {
+                  results.appendChild(item.cloneNode(true));
+                }
+              });
+
+              if (results.innerHTML === "" && url === "shop.html") {
+                results.innerHTML = "No results found.";
+              }
+            });
+  }
+
+</script>
 </body>
 </html>

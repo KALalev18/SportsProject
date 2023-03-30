@@ -77,30 +77,6 @@
       box-sizing: border-box;
     }
 
-    .input-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #e26d5c;
-      padding: 0.5rem;
-      border-radius: 0.5rem;
-      color: white;
-      box-shadow: 0.25rem 0.25rem 0rem black;
-    }
-
-    input {
-      margin: 0 0.5rem 0 0.5rem;
-      width: 100%;
-      border: none;
-      outline: none;
-      background: #e26d5c;
-      color: white;
-    }
-
-    ::placeholder {
-      color: #f0b2a8;
-    }
-
     /* Style the body */
     body {
       font-family: Arial, Helvetica, sans-serif;
@@ -223,6 +199,7 @@
       text-align: center;
       font-family: arial;
       display: inline-block;
+      border: 2px solid black;
     }
 
     .price {
@@ -261,6 +238,7 @@
       flex-direction: column;
       display: inline-block;
       text-align: center;
+
     }
     h1{
       color: #333;
@@ -271,17 +249,58 @@
       height: 300px;
     }
 
+    .search-container button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 12px;
+      border-radius: 4px;
+      margin-left: 10px;
+    }
+
+    .search-container button:hover {
+      background-color: #45a049;
+    }
+
+    form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      border: none;
+      border-radius: 5px 0 0 5px;
+      width: 70%;
+    }
+
+    button {
+      padding: 10px;
+      border: none;
+      background-color: #4CAF50;
+      color: #fff;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+    }
+
+    #results {
+      margin-top: 20px;
+    }
+
   </style>
 </head>
 <body>
 
 <div class="header">
-  <h1>Заедно към развитието на спорта</h1>
-  <div class="input-wrapper">
-    <div class="fa fa-search"></div>
-    <input type="text" placeholder="Search"/>
-    <div class="fa fa-times"></div>
-  </div>
+  <h1>Sports</h1>
+  <form>
+    <input type="text" id="searchInput" placeholder="Search...">
+    <button type="button" id="searchBtn">Search</button>
+  </form>
+  <div id="results"></div>
+  <br>
 </div>
 
 <nav>
@@ -335,6 +354,10 @@
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1469.383239021384!2d27.63755949221781!3d42.56025123293111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a6bd634ecffa4d%3A0xe61c36e43242f3f8!2z0KHQntCjICLQmNCy0LDQvSDQktCw0LfQvtCyIiAtINC80LDQu9C60L7RgtC-INGD0YfQuNC70LjRidC1!5e0!3m2!1sbg!2sbg!4v1679988221592!5m2!1sbg!2sbg" width="60" height="25" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   </div>
+</div>
+</div>
+<br>
+<div class="row" style="text-align: center;">
   <div class="card">
     <div class="container">
       <h1>Спортна площадка СОУ Иван Вазов - гр. Поморие </h1>
@@ -346,5 +369,41 @@
     </div>
   </div>
 </div>
+<script>
+  const searchBtn = document.getElementById("searchBtn");
+  const searchInput = document.getElementById("searchInput");
+  const results = document.getElementById("results");
+
+  searchBtn.addEventListener("click", () => {
+    const query = searchInput.value.toLowerCase();
+    results.innerHTML = "";
+
+    fetchPage("about.html", query);
+    fetchPage("start.html", query);
+    fetchPage("construction.html", query);
+    fetchPage("news.html", query);
+    fetchPage("shop.html", query);
+  });
+
+  function fetchPage(url, query) {
+    fetch(url)
+            .then(response => response.text())
+            .then(html => {
+              const doc = new DOMParser().parseFromString(html, "text/html");
+              const allItems = doc.querySelectorAll(".searchable");
+
+              allItems.forEach((item) => {
+                if (item.textContent.toLowerCase().includes(query)) {
+                  results.appendChild(item.cloneNode(true));
+                }
+              });
+
+              if (results.innerHTML === "" && url === "shop.html") {
+                results.innerHTML = "No results found.";
+              }
+            });
+  }
+
+</script>
 </body>
 </html>

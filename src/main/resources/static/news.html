@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Construction</title>
+  <title>News</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
@@ -77,29 +77,7 @@
       box-sizing: border-box;
     }
 
-    .input-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #e26d5c;
-      padding: 0.5rem;
-      border-radius: 0.5rem;
-      color: white;
-      box-shadow: 0.25rem 0.25rem 0rem black;
-    }
 
-    input {
-      margin: 0 0.5rem 0 0.5rem;
-      width: 100%;
-      border: none;
-      outline: none;
-      background: #e26d5c;
-      color: white;
-    }
-
-    ::placeholder {
-      color: #f0b2a8;
-    }
 
     /* Style the body */
     body {
@@ -159,41 +137,6 @@
       }
     }
 
-    .card button {
-      border: none;
-      outline: 0;
-      padding: 12px;
-      color: white;
-      background-color: #000;
-      text-align: center;
-      cursor: pointer;
-      width: 100%;
-      font-size: 18px;
-    }
-
-    .card button:hover {
-      opacity: 0.7;
-    }
-    .search-container {
-      display: flex;
-      align-items: center;
-      text-align: right;
-    }
-
-    .search-container form {
-      display: flex;
-      width: 20%;
-    }
-
-    .search-container input[type=text] {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-      font-size: 16px;
-    }
-
     .search-container button {
       background-color: #4CAF50;
       color: white;
@@ -216,18 +159,6 @@
         width: 30%;
         margin-left: 0;
       }
-    }
-    .card {
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-      max-width: 300px;
-      text-align: center;
-      font-family: arial;
-      display: inline-block;
-    }
-
-    .price {
-      color: grey;
-      font-size: 22px;
     }
 
     .card button {
@@ -257,17 +188,45 @@
       margin-right: 100px;
     }
 
+    form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      border: none;
+      border-radius: 5px 0 0 5px;
+      width: 70%;
+    }
+
+    button {
+      padding: 10px;
+      border: none;
+      background-color: #4CAF50;
+      color: #fff;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+    }
+
+    #results {
+      margin-top: 20px;
+    }
+
+
   </style>
 </head>
 <body>
 
 <div class="header">
-  <h1>Заедно към развитието на спорта</h1>
-  <div class="input-wrapper">
-    <div class="fa fa-search"></div>
-    <input type="text" placeholder="Search" />
-    <div class="fa fa-times"></div>
-  </div>
+  <h1>Sports</h1>
+  <form>
+    <input type="text" id="searchInput" placeholder="Search...">
+    <button type="button" id="searchBtn">Search</button>
+  </form>
+  <div id="results"></div>
+  <br>
 </div>
 
 <nav>
@@ -278,27 +237,67 @@
   <a href="about.html">За нас</a>
   <div class="animation start-home"></div>
 </nav>
-
-<h2>Изградено е ново футболно игрище в Поморие</h2>
 <br>
-<img src="https://www.pomorie.bg/new/wp-content/uploads/2021/11/DSCN1331-scaled-1440x480.jpg" width="600" height="200">
+<h2 style="margin-left: 50px;">Изградено е ново футболно игрище в Поморие</h2>
+<br>
+<img src="https://www.pomorie.bg/new/wp-content/uploads/2021/11/DSCN1331-scaled-1440x480.jpg" width="600" height="200" style="margin-left: 50px;">
 <div class="top-right">Новоизграденото спортно съоръжение в Поморие радва малчуганите и очарова възрастните.</div>
-<p><h3>Date added:</h3> 20/02/2023</p>
+<h3 style="margin-left: 50px;">Date added:</h3>
+<p style="margin-left: 50px;">20/02/2023</p>
 <br>
 <br>
 
-<h2>15 милиона лева за спортни площадки</h2>
+<h2 style="margin-left: 50px;">15 милиона лева за спортни площадки</h2>
 <br>
-<img src="http://dynamicsport.eu/uploads/3/4/3/5/34357036/329484_orig.jpg" width="500" height="300">
+<img src="http://dynamicsport.eu/uploads/3/4/3/5/34357036/329484_orig.jpg" width="500" height="300" style="margin-left: 50px;">
 <div class="top-right">15 млн. лв. ще бъдат вложeни до края на настоящата година за изграждане и оборудване на нови спортни площадки в училищата и за ремонт на стари съоръжения. Това предвижда проект на Решение на Министерския съвет за одобряване на Програма за изграждане на нови и ремонт на съществуващи спортни площадки в държавните и общинските училища. Документът е публикуван за обществено обсъждане.</div>
-<p><h3>Date added:</h3> 18/12/2022</p>
+<h3 style="margin-left: 50px;">Date added:</h3>
+<p style="margin-left: 50px;">18/12/2022</p>
 <br>
 <br>
 
-<h2>Ротари клуб подари спортни съоръжения на врачани</h2>
+<h2 style="margin-left: 50px;">Ротари клуб подари спортни съоръжения на врачани</h2>
 <br>
-<img src="https://darik.bg/media/551/296102437_1683298102039438_1463777287411480632_n.l.webp" width="400" height="250">
+<img src="https://darik.bg/media/551/296102437_1683298102039438_1463777287411480632_n.l.webp" width="400" height="250" style="margin-left: 50px;">
 <div class="top-right">Четири шахматни маси и четири тенис маси бяха дарени на Община Враца от Ротари клуб Враца. Новите спортни съоръжения, които са разположени в парка при стадион „Христо Ботев“ бяха открити от заместник-кмета Цветан Стойчков и президента на Ротари клуб Враца Валентина Ангелова.</div>
-<p><h3>Date added:</h3> 18/08/2022</p>
+<h3 style="margin-left: 50px;">Date added:</h3>
+<p style="margin-left: 50px;">18/08/2022</p>
+
+<script>
+  const searchBtn = document.getElementById("searchBtn");
+  const searchInput = document.getElementById("searchInput");
+  const results = document.getElementById("results");
+
+  searchBtn.addEventListener("click", () => {
+    const query = searchInput.value.toLowerCase();
+    results.innerHTML = "";
+
+    fetchPage("about.html", query);
+    fetchPage("start.html", query);
+    fetchPage("construction.html", query);
+    fetchPage("news.html", query);
+    fetchPage("shop.html", query);
+  });
+
+  function fetchPage(url, query) {
+    fetch(url)
+            .then(response => response.text())
+            .then(html => {
+              const doc = new DOMParser().parseFromString(html, "text/html");
+              const allItems = doc.querySelectorAll(".searchable");
+
+              allItems.forEach((item) => {
+                if (item.textContent.toLowerCase().includes(query)) {
+                  results.appendChild(item.cloneNode(true));
+                }
+              });
+
+              if (results.innerHTML === "" && url === "shop.html") {
+                results.innerHTML = "No results found.";
+              }
+            });
+  }
+
+</script>
 </body>
 </html>
