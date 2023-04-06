@@ -1,6 +1,7 @@
 package model;
 
 import jakarta.persistence.*;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Objects;
 
@@ -21,6 +22,8 @@ public class User {
     private String password;
     @Column(name = "isAdmin", columnDefinition = "bit", nullable = false)
     private boolean isAdmin;
+
+
 
     public User(int userId, String firstName, String lastName, String email, String password, boolean isAdmin) {
         this.userId = userId;
