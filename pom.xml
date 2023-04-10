@@ -83,6 +83,10 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/src/main/lib/mssql-jdbc-10.2.0.jre17.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

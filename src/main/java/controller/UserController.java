@@ -2,12 +2,16 @@ package controller;
 
 import org.springframework.ui.Model;
 import model.User;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Scanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import repository.UserRepository;
 
 import org.springframework.stereotype.Controller;
@@ -21,6 +25,22 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(@RequestParam("email") String email,
+                        @RequestParam("password") String password,
+                        Model model) {
+        User user = userRepository.findByEmail(email);
+        if (user != null && user.getPassword().equals(password)) {
+            // Successful login
+            return "redirect:/home";
+        } else {
+            // Failed login
+            model.addAttribute("error", "Invalid email or password");
+            return "login";
+        }
+    }
+
+    /*
     @GetMapping("/users")
     public String getUsers(Model model) {
         List<User> users = userRepository.findAll();
@@ -28,7 +48,7 @@ public class UserController {
         return "users"; // This should be the name of the view (i.e., the HTML file) you want to render
     }
 
-    /*
+
     @GetMapping("/users")
     public List<User> getUsers()
     {
