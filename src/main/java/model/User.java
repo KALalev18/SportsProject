@@ -1,9 +1,12 @@
 package model;
 
 import jakarta.persistence.*;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "Users")
@@ -21,7 +24,7 @@ public class User {
     @Column(name = "password", columnDefinition = "nvarchar(100)", nullable = false)
     private String password;
     @Column(name = "isAdmin", columnDefinition = "bit", nullable = false)
-    private boolean isAdmin;
+    private boolean isAdmin = false;
 
 
 
@@ -81,11 +84,26 @@ public class User {
         this.password = password;
     }
 
-    public boolean isAdmin() {
+    public boolean isAdmin(boolean b) {
         return isAdmin;
     }
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
     }
+
+    public Collection<? extends GrantedAuthority> getAuthorities()
+    {
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        if(isAdmin)
+        {
+            authorities.add(new SimpleGrantedAuthority("USER"));
+        }
+        else
+        {
+            authorities.add(new SimpleGrantedAuthority("ADMIN"));
+        }
+        return authorities;
+    }
+
 }

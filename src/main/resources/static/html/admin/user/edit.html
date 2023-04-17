@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: headerHead">
+  <title>Users</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container">
+  <div align="center">
+    <h1>Users</h1>
+    <form action="#" th:action="@{/users/edit}" method="post" th:object="${user}" class="form-control">
+      <label>First name:</label>
+      <input type="text" th:field="*{firstName}" class="form-control"/>
+      <br>
+      <label>Last name:</label>
+      <input type="text" th:field="*{lastName}" class="form-control"/>
+      <br>
+      <label>Email:</label>
+      <input type="text" th:field="*{email}" class="form-control"/>
+      <br>
+      <label>Password:</label>
+      <input type="text" th:field="*{password}" class="form-control"/>
+      <br>
+      <label>Is Admin:</label>
+      <select th:field="*{isAdmin}" class="form-control">
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+      <input type="hidden" th:field="*{userId}" class="form-control"/>
+      <br>
+      <button type="submit" class="btn btn-primary">Edit</button>
+
+    </form>
+  </div>
+</div>
+</body>
+</html>

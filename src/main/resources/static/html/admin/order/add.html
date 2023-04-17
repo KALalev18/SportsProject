@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: headerHead">
+    <title>Add Order</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container">
+    <div align="center">
+        <h1>Orders</h1>
+        <form action="#" th:action="@{/orders/add}" method="post" th:object="${order}" class="form-group">
+            <label>Departure:</label>
+            <input type="text" th:field="*{departure}" class="form-control"/>
+            <br>
+            <label>Address Departure:</label>
+            <input type="text" th:field="*{addressDeparture}" class="form-control"/>
+            <br>
+            <label>Payment type:</label>
+            <input type="text" th:field="*{paymentType}" class="form-control"/>
+            <br>
+            <label>Order price:</label>
+            <input type="text" th:field="*{orderPrice}" class="form-control"/>
+            <br>
+            <label>Product count:</label>
+            <input type="text" th:field="*{productCount}" class="form-control"/>
+            <br>
+            <input type="hidden" th:field="*{orderId}" class="form-control"/>
+            <br>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

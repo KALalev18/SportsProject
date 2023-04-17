@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: headerHead">
+    <title>Fields</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container">
+    <div align="center">
+        <h1>Fields</h1>
+        <form action="#" th:action="@{/fields/edit}" method="post" th:object="${field}" class="form-control">
+            <label>Location:</label>
+            <input type="text" th:field="*{fieldLocation}" class="form-control"/>
+            <br>
+            <label>Start time:</label>
+            <input type="text" th:field="*{startedWorkingTime}" class="form-control"/>
+            <br>
+            <label>Finish time:</label>
+            <input type="text" th:field="*{finishedWorkingTime}" class="form-control"/>
+            <br>
+            <label>Price:</label>
+            <input type="text" th:field="*{priceByHour}" class="form-control"/>
+            <br>
+            <input type="hidden" th:field="*{fieldId}" class="form-control"/>
+            <br>
+            <button type="submit" class="btn btn-primary">Edit</button>
+
+        </form>
+    </div>
+</div>
+</body>
+</html>

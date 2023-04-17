@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: headerHead">
+    <title>Fields</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container">
+    <h1>Fields</h1>
+    <a th:href="@{/fields/add}" class="btn btn-primary">Add new</a>
+    <table class="table table-striped">
+        <thead  class="thead-dark">
+        <tr>
+            <th>Field id</th>
+            <th>Field location</th>
+            <th>Start time</th>
+            <th>Finish time</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tr th:each="field: ${fields}">
+            <td th:text="${field.fieldId}" />
+            <td th:text="${field.fieldLocation}" />
+            <td th:text="${field.startedWorkingTime}" />
+            <td th:text="${field.finishedWorkingTime}" />
+            <td th:text="${field.priceByHour}" />
+            <td>
+                <a th:href="@{/fields/{fieldId}/(fieldId=${field.fieldId})}" class="btn btn-primary">Details</a>
+                <a th:href="@{/fields/edit/{fieldId}/(fieldId=${field.fieldId})}" class="btn btn-warning">Edit</a>
+                <a th:href="@{/fields/delete/{fieldId}/(fieldId=${field.fieldId})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</div>
+</body>
+</html>

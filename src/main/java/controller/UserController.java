@@ -1,86 +1,103 @@
 package controller;
 
-import org.springframework.ui.Model;
+import dto.AdminDto;
+import dto.UserDto;
+import jakarta.validation.Valid;
 import model.User;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Scanner;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import repository.UserRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import java.util.List;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import repository.UserRepository;
+import service.UserService;
 
-import java.util.List;
-
-@RestController
+@Controller
 public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@RequestParam("email") String email,
-                        @RequestParam("password") String password,
-                        Model model) {
-        User user = userRepository.findByEmail(email);
-        if (user != null && user.getPassword().equals(password)) {
-            // Successful login
-            return "redirect:/home";
-        } else {
-            // Failed login
-            model.addAttribute("error", "Invalid email or password");
-            return "login";
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/users")
+    public String index(Model model) {
+        model.addAttribute("users", userRepository.findAll());
+        return "users/index";
+    }
+
+    @GetMapping("/users/register")
+    public String register(Model model) {
+        UserDto userDto = new UserDto();
+        model.addAttribute("user", userDto);
+        return "users/register";
+    }
+
+    @PostMapping("/users/register")
+    public ModelAndView register(@ModelAttribute("user") @Valid UserDto userDto, BindingResult bindingResult) {
+
+        try {
+            if (bindingResult.hasErrors()) {
+                return new ModelAndView("users/register", "user", userDto);
+            }
+            User registered = userService.registerNewUser(userDto);
+
+        } catch (UserAlreadyExistException uaeEx) {
+            ModelAndView modelAndView = new ModelAndView("users/email", "user", userDto);
+            modelAndView.addObject("message", "There was a problem with your registration");
+            return modelAndView;
+        } catch (final RuntimeException ex) {
+            return new ModelAndView("users/register", "user", userDto);
         }
     }
 
-    /*
-    @GetMapping("/users")
-    public String getUsers(Model model) {
-        List<User> users = userRepository.findAll();
-        model.addAttribute("users", users);
-        return "users"; // This should be the name of the view (i.e., the HTML file) you want to render
+    @GetMapping("/users/{userId}")
+    public String get(@PathVariable int userId, Model model) {
+
+        userRepository.findById(userId).ifPresent(item -> model.addAttribute("item", item));
+        return "users/details";
     }
 
+    @GetMapping("/users/add")
+    public String add(Model model) {
+        AdminDto adminDto = new AdminDto();
+        model.addAttribute("user", adminDto);
+        return "users/add";
+    }
 
-    @GetMapping("/users")
-    public List<User> getUsers()
+    @RequestMapping(value = "/users/add", method = RequestMethod.POST)
+    public ModelAndView add(@ModelAttribute("user") AdminDto user, Model model) {
+        User registered = userService.registerUserAsAdmin(user);
+
+        return new ModelAndView("redirect:/users");
+    }
+
+    @GetMapping("/users/edit/{userId}")
+    public String edit(@PathVariable int userId, Model model)
     {
-        return userRepository.findAll();
+        model.addAttribute("user", userRepository.findById(userId));
+        return "users/edit";
     }
 
-    @PostMapping("/users")
-    public User addUser(@Valid @RequestBody User user)
-    {
-        return userRepository.save(user);
+    @RequestMapping(value = "/users/edit", method = RequestMethod.POST)
+    public ModelAndView edit(@ModelAttribute("user") User user, Model model) {
+        model.addAttribute("item", user);
+        userRepository.save(user);
+        return new ModelAndView("redirect:/users");
     }
 
-    @PutMapping("/employees/{id}")
-    public ResponseEntity<User> updateEmployee(@PathVariable(value = "userId") int userId,
-                                               @Valid @RequestBody User userDetails) {
-        User user = userRepository.findById(userId);
-
-        user.setUserId(userDetails.getUserId());
-        user.setLastName(userDetails.getLastName());
-        user.setFirstName(userDetails.getFirstName());
-        final User updatedEmployee = userRepository.save(user);
-        return ResponseEntity.ok(updatedEmployee);
-    }
-
-    @DeleteMapping("/employees/{id}")
-    public Map<String, Boolean> deleteEmployee(@PathVariable(value = "userId") int userId){
-        User user = userRepository.findById(userId);
-
+    @GetMapping("/users/delete/{userId}")
+    public ModelAndView delete(@PathVariable int userId, Model model) throws ChangeSetPersister.NotFoundException {
+        User user = userRepository.findById(userId).orElseThrow(() -> new ChangeSetPersister.NotFoundException());
         userRepository.delete(user);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return response;
+        return new ModelAndView("redirect:/users");
     }
-    */
 }

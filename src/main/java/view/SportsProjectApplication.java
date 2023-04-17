@@ -2,6 +2,7 @@ package view;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @SpringBootApplication
 public class SportsProjectApplication {
@@ -10,5 +11,6 @@ public class SportsProjectApplication {
         SpringApplication.run(SportsProjectApplication.class, args);
         System.out.println("http://localhost:8080/");
     }
+
 
 }
