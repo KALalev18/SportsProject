@@ -9,18 +9,18 @@ import java.util.Objects;
 public class Field {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "fieldId", columnDefinition = "int", nullable = false)
+    @Column(name = "FieldId", columnDefinition = "int", nullable = false)
     private int fieldId;
-    @Column(name = "fieldLocation", columnDefinition = "nvarchar(100)", nullable = false)
+    @Column(name = "FieldLocation", columnDefinition = "nvarchar(100)", nullable = false)
     private int fieldLocation;
-    @Column(name = "startedWorkingTime", columnDefinition = "time(7)", nullable = false)
+    @Column(name = "StartedWorkingTime", columnDefinition = "time(7)", nullable = false)
     private String startedWorkingTime;
-    @Column(name = "finishedWorkingTime", columnDefinition = "time(7)", nullable = false)
-    private int finishedWorkingTime;
-    @Column(name = "priceByHour", columnDefinition = "float", nullable = true)
+    @Column(name = "FinishedWorkingTime", columnDefinition = "time(7)", nullable = false)
+    private String finishedWorkingTime;
+    @Column(name = "PriceByHour", columnDefinition = "decimal(10, 2)", nullable = true)
     private float priceByHour;
 
-    public Field(int fieldId, int fieldLocation, String startedWorkingTime, int finishedWorkingTime, float priceByHour) {
+    public Field(int fieldId, int fieldLocation, String startedWorkingTime, String finishedWorkingTime, float priceByHour) {
         this.fieldId = fieldId;
         this.fieldLocation = fieldLocation;
         this.startedWorkingTime = startedWorkingTime;
@@ -40,7 +40,7 @@ public class Field {
         this.fieldId = fieldId;
     }
 
-    public int getFieldLocation() {
+    public int getFieldLocation(String pomorie) {
         return fieldLocation;
     }
 
@@ -48,7 +48,7 @@ public class Field {
         this.fieldLocation = fieldLocation;
     }
 
-    public String getStartedWorkingTime() {
+    public String getStartedWorkingTime(String s) {
         return startedWorkingTime;
     }
 
@@ -56,15 +56,15 @@ public class Field {
         this.startedWorkingTime = startedWorkingTime;
     }
 
-    public int getFinishedWorkingTime() {
+    public String getFinishedWorkingTime(String s) {
         return finishedWorkingTime;
     }
 
-    public void setFinishedWorkingTime(int finishedWorkingTime) {
+    public void setFinishedWorkingTime(String finishedWorkingTime) {
         this.finishedWorkingTime = finishedWorkingTime;
     }
 
-    public float getPriceByHour() {
+    public float getPriceByHour(int i) {
         return priceByHour;
     }
 

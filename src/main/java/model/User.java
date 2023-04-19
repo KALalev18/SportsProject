@@ -1,48 +1,36 @@
 package model;
 
 import jakarta.persistence.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Table(name = "Users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "userId", columnDefinition = "int", nullable = false)
+    @Column(name = "UserId", columnDefinition = "int", nullable = false)
     private int userId;
-    @Column(name = "firstName", columnDefinition = "nvarchar(100)", nullable = false)
+    @Column(name = "FirstName", columnDefinition = "nvarchar(100)", nullable = false)
     private String firstName;
-    @Column(name = "lastName", columnDefinition = "nvarchar(100)", nullable = false)
+    @Column(name = "LastName", columnDefinition = "nvarchar(100)", nullable = false)
     private String lastName;
-    @Column(name = "email", columnDefinition = "nvarchar(100)", nullable = false)
+    @Column(name = "Email", columnDefinition = "nvarchar(100)", nullable = false)
     private String email;
-    @Column(name = "password", columnDefinition = "nvarchar(100)", nullable = false)
+    @Column(name = "Password", columnDefinition = "nvarchar(100)", nullable = false)
     private String password;
-    @Column(name = "isAdmin", columnDefinition = "bit", nullable = false)
-    private boolean isAdmin = false;
+    @ManyToOne
+    @JoinColumn(name = "RoleId")
+    @Column(name = "RoleId", columnDefinition = "int", nullable = false)
+    private UserRole roleId;
 
-
-
-    public User(int userId, String firstName, String lastName, String email, String password, boolean isAdmin) {
+    public User(int userId, String firstName, String lastName, String email, String password, UserRole roleId) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.isAdmin = isAdmin;
+        this.roleId = roleId;
     }
-
-    public User() {
-
-    }
-
-    public User(int id, String name, String email) {
-    }
+    public User(){}
 
     public int getUserId() {
         return userId;
@@ -84,26 +72,11 @@ public class User {
         this.password = password;
     }
 
-    public boolean isAdmin(boolean b) {
-        return isAdmin;
+    public UserRole getRoleId() {
+        return roleId;
     }
 
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setRoleId(UserRole roleId) {
+        this.roleId = roleId;
     }
-
-    public Collection<? extends GrantedAuthority> getAuthorities()
-    {
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        if(isAdmin)
-        {
-            authorities.add(new SimpleGrantedAuthority("USER"));
-        }
-        else
-        {
-            authorities.add(new SimpleGrantedAuthority("ADMIN"));
-        }
-        return authorities;
-    }
-
 }

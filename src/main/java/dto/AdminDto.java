@@ -1,19 +1,14 @@
 package dto;
 
 import jakarta.validation.constraints.Size;
+import model.UserRole;
 
 public class AdminDto {
     private String firstName;
-
     private String lastName;
-
-    private String phoneNumber;
-
     private String password;
-
     private String email;
-
-    private Boolean isAdmin;
+    private UserRole roleId;
 
     public String getEmail() {
         return email;
@@ -39,14 +34,6 @@ public class AdminDto {
         this.lastName = lastName;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(final String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -55,11 +42,11 @@ public class AdminDto {
         this.password = password;
     }
 
-    public Boolean getIsAdmin() {
-        return isAdmin;
+    public UserRole getRoleId() {
+        return roleId;
     }
 
-    public void setIsAdmin(final Boolean isAdmin) {
-        this.isAdmin = isAdmin;
+    public void setRoleId(UserRole roleId) {
+        this.roleId = roleId;
     }
 }

@@ -24,7 +24,8 @@ public class UserService {
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
-        user.isAdmin(false);
+        user.setPassword(userDto.getPassword());
+        user.setRoleId(userDto.getRoleId());
         User updatedUser = userRepository.save(user);
 
         return updatedUser;
@@ -39,7 +40,9 @@ public class UserService {
         user.setFirstName(adminDto.getFirstName());
         user.setLastName(adminDto.getLastName());
         user.setEmail(adminDto.getEmail());
-        user.isAdmin(true);
+        user.setPassword(adminDto.getPassword());
+        user.setRoleId(adminDto.getRoleId());
+
         User updatedUser = userRepository.save(user);
 
         return userRepository.save(user);

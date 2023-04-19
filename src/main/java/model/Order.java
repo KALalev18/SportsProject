@@ -2,38 +2,36 @@ package model;
 
 import jakarta.persistence.*;
 
-import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "Orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "orderId", columnDefinition = "int", nullable = false)
+    @Column(name = "OrderId", columnDefinition = "int", nullable = false)
     private int orderId;
-    @Column(name = "departure", columnDefinition = "datetime", nullable = false)
-    private String departure;
-    @Column(name = "addressDeparture", columnDefinition = "nvarchar(100)", nullable = false)
-    private int addressDeparture;
-    @Column(name = "paymentType", columnDefinition = "nvarchar(100)", nullable = false)
-    private int paymentType;
-    @Column(name = "orderPrice", columnDefinition = "float", nullable = false)
-    private int orderPrice;
-    @Column(name = "productCount", columnDefinition = "int", nullable = false)
-    private int productCount;
+    @OneToOne
+    @JoinColumn(name = "UserId")
+    @Column(name = "UserId", columnDefinition = "datetime", nullable = false)
+    private User userId;
+    @ManyToMany
+    @JoinColumn(name = "ProductId")
+    @Column(name = "ProductId", columnDefinition = "nvarchar(100)", nullable = false)
+    private Set<Product> productId;
+    @Column(name = "ProductQuantity", columnDefinition = "nvarchar(100)", nullable = false)
+    private int productQuantity;
+    @Column(name = "TotalPrice", columnDefinition = "float", nullable = false)
+    private int totalPrice;
 
-    public Order(int orderId, String departure, int addressDeparture, int paymentType, int orderPrice, int productCount) {
+    public Order(int orderId, User userId, Set<Product> productId, int productQuantity, int totalPrice) {
         this.orderId = orderId;
-        this.departure = departure;
-        this.addressDeparture = addressDeparture;
-        this.paymentType = paymentType;
-        this.orderPrice = orderPrice;
-        this.productCount = productCount;
+        this.userId = userId;
+        this.productId = productId;
+        this.productQuantity = productQuantity;
+        this.totalPrice = totalPrice;
     }
-
-    public Order() {
-
-    }
+    public Order(){}
 
     public int getOrderId() {
         return orderId;
@@ -43,68 +41,35 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public String getDeparture() {
-        return departure;
+    public User getUserId() {
+        return userId;
     }
 
-    public void setDeparture(String departure) {
-        this.departure = departure;
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
 
-    public int getAddressDeparture() {
-        return addressDeparture;
+    public Set<Product> getProductId() {
+        return productId;
     }
 
-    public void setAddressDeparture(int addressDeparture) {
-        this.addressDeparture = addressDeparture;
+    public void setProductId(Set<Product> productId) {
+        this.productId = productId;
     }
 
-    public int getPaymentType() {
-        return paymentType;
+    public int getProductQuantity(int i) {
+        return productQuantity;
     }
 
-    public void setPaymentType(int paymentType) {
-        this.paymentType = paymentType;
+    public void setProductQuantity(int productQuantity) {
+        this.productQuantity = productQuantity;
     }
 
-    public int getOrderPrice() {
-        return orderPrice;
+    public int getTotalPrice(double v) {
+        return totalPrice;
     }
 
-    public void setOrderPrice(int orderPrice) {
-        this.orderPrice = orderPrice;
-    }
-
-    public int getProductCount() {
-        return productCount;
-    }
-
-    public void setProductCount(int productCount) {
-        this.productCount = productCount;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Order order = (Order) o;
-        return orderId == order.orderId && addressDeparture == order.addressDeparture && paymentType == order.paymentType && orderPrice == order.orderPrice && productCount == order.productCount && Objects.equals(departure, order.departure);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(orderId, departure, addressDeparture, paymentType, orderPrice, productCount);
-    }
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "orderId=" + orderId +
-                ", departure='" + departure + '\'' +
-                ", addressDeparture=" + addressDeparture +
-                ", paymentType=" + paymentType +
-                ", orderPrice=" + orderPrice +
-                ", productCount=" + productCount +
-                '}';
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

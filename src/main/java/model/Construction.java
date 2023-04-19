@@ -9,23 +9,23 @@ import java.util.Objects;
 public class Construction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "requestId", columnDefinition = "int", nullable = false)
-    private int requestId;
-    @Column(name = "firstName", columnDefinition = "nvarchar(100)", nullable = false)
+    @Column(name = "ConstructionId", columnDefinition = "int", nullable = false)
+    private int constructionId;
+    @Column(name = "FirstName", columnDefinition = "nvarchar(50)", nullable = false)
     private String firstName;
-    @Column(name = "lastName", columnDefinition = "nvarchar(100)", nullable = false)
+    @Column(name = "LastName", columnDefinition = "nvarchar(50)", nullable = false)
     private String lastName;
-    @Column(name = "phoneNumber", columnDefinition = "nvarchar(100)", nullable = true)
+    @Column(name = "PhoneNumber", columnDefinition = "nvarchar(50)", nullable = false)
     private String phoneNumber;
-    @Column(name = "description", columnDefinition = "nvarchar(1000)", nullable = true)
+    @Column(name = "Description", columnDefinition = "varchar(250)", nullable = false)
     private String description;
-    @ManyToOne
-    @JoinColumn(name = "userId")
-    @Column(name = "userId", columnDefinition = "int", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "UserId")
+    @Column(name = "UserId", columnDefinition = "int", nullable = false)
     private User userId;
 
-    public Construction(int requestId, String firstName, String lastName, String phoneNumber, String description, User userId) {
-        this.requestId = requestId;
+    public Construction(int constructionId, String firstName, String lastName, String phoneNumber, String description, User userId) {
+        this.constructionId = constructionId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
@@ -33,16 +33,14 @@ public class Construction {
         this.userId = userId;
     }
 
-    public Construction() {
+    public Construction(){}
 
+    public int getConstructionId() {
+        return constructionId;
     }
 
-    public int getRequestId() {
-        return requestId;
-    }
-
-    public void setRequestId(int requestId) {
-        this.requestId = requestId;
+    public void setConstructionId(int constructionId) {
+        this.constructionId = constructionId;
     }
 
     public String getFirstName() {
@@ -83,30 +81,5 @@ public class Construction {
 
     public void setUserId(User userId) {
         this.userId = userId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Construction that = (Construction) o;
-        return requestId == that.requestId && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(description, that.description) && Objects.equals(userId, that.userId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(requestId, firstName, lastName, phoneNumber, description, userId);
-    }
-
-    @Override
-    public String toString() {
-        return "Construction{" +
-                "requestId=" + requestId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", description='" + description + '\'' +
-                ", userId=" + userId +
-                '}';
     }
 }

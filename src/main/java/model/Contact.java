@@ -9,19 +9,19 @@ import java.util.Objects;
 public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "contactId", columnDefinition = "int", nullable = false)
+    @Column(name = "ContactId", columnDefinition = "int", nullable = false)
     private int contactId;
-    @Column(name = "firstName", columnDefinition = "nvarchar(100)", nullable = false)
+    @Column(name = "FirstName", columnDefinition = "nvarchar(100)", nullable = false)
     private String firstName;
-    @Column(name = "lastName", columnDefinition = "nvarchar(100)", nullable = false)
+    @Column(name = "LastName", columnDefinition = "nvarchar(100)", nullable = false)
     private String lastName;
-    @Column(name = "phoneNumber", columnDefinition = "nvarchar(100)", nullable = true)
+    @Column(name = "PhoneNumber", columnDefinition = "nvarchar(100)", nullable = false)
     private String phoneNumber;
-    @Column(name = "subject", columnDefinition = "nvarchar(1000)", nullable = true)
+    @Column(name = "Subject", columnDefinition = "varchar(250)", nullable = false)
     private String subject;
-    @ManyToOne
-    @JoinColumn(name = "userId")
-    @Column(name = "userId", columnDefinition = "int", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "UserId")
+    @Column(name = "UserId", columnDefinition = "int", nullable = false)
     private User userId;
 
     public Contact(int contactId, String firstName, String lastName, String phoneNumber, String subject, User userId) {
@@ -32,10 +32,7 @@ public class Contact {
         this.subject = subject;
         this.userId = userId;
     }
-
-    public Contact() {
-
-    }
+    public Contact(){}
 
     public int getContactId() {
         return contactId;
@@ -83,30 +80,5 @@ public class Contact {
 
     public void setUserId(User userId) {
         this.userId = userId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Contact contact = (Contact) o;
-        return contactId == contact.contactId && Objects.equals(firstName, contact.firstName) && Objects.equals(lastName, contact.lastName) && Objects.equals(phoneNumber, contact.phoneNumber) && Objects.equals(subject, contact.subject) && Objects.equals(userId, contact.userId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(contactId, firstName, lastName, phoneNumber, subject, userId);
-    }
-
-    @Override
-    public String toString() {
-        return "Contact{" +
-                "contactId=" + contactId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", subject='" + subject + '\'' +
-                ", userId=" + userId +
-                '}';
     }
 }
