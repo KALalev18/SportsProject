@@ -13,21 +13,19 @@
         <thead  class="thead-dark">
         <tr>
             <th>Order id</th>
-            <th>Departure</th>
-            <th>Address Departure</th>
-            <th>Payment Type</th>
-            <th>Order Price</th>
-            <th>Products Count</th>
+            <th>User id</th>
+            <th>Product id</th>
+            <th>Product quantity</th>
+            <th>Total Price</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tr th:each="order: ${orders}">
             <td th:text="${order.orderId}" />
-            <td th:text="${order.departure}" />
-            <td th:text="${order.addressDeparture}" />
-            <td th:text="${order.paymentType}" />
-            <td th:text="${order.orderPrice}" />
-            <td th:text="${order.productCount}" />
+            <td th:text="${user.userId}" />
+            <td th:text="${product.productId}" />
+            <td th:text="${order.productQuantity}" />
+            <td th:text="${order.totalPrice}" />
             <td>
                 <a th:href="@{/orders/{orderId}/(orderId=${order.orderId})}" class="btn btn-primary">Details</a>
                 <a th:href="@{/orders/edit/{orderId}/(orderId=${order.orderId})}" class="btn btn-warning">Edit</a>

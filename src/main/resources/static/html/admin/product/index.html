@@ -1,20 +1,21 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: headerHead">
-    <title>Users</title>
+    <title>Products</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
 <div class="container">
     <h1>Products</h1>
-    <a th:href="@{/users/add}" class="btn btn-primary">Add new</a>
+    <a th:href="@{/products/add}" class="btn btn-primary">Add new</a>
     <table class="table table-striped">
         <thead  class="thead-dark">
         <tr>
             <th>Product id</th>
             <th>Product Name</th>
             <th>Product Price</th>
+            <th>Product Description</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -22,6 +23,7 @@
             <td th:text="${product.productId}" />
             <td th:text="${product.productName}" />
             <td th:text="${product.productPrice}" />
+            <td th:text="${product.productDescription}" />
             <td>
                 <a th:href="@{/products/{productId}/(productId=${product.productId})}" class="btn btn-primary">Details</a>
                 <a th:href="@{/products/edit/{productId}/(productId=${product.productId})}" class="btn btn-warning">Edit</a>

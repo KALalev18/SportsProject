@@ -353,6 +353,11 @@ header .shopping span{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 }
+.header img {
+    position: absolute;
+    top: 30px;
+    right: 50px;
+}
 .card .checkOut div{
     background-color: #E8BC0E;
     width: 100%;

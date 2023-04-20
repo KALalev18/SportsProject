@@ -5,4 +5,5 @@ import model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ConstructionRepository extends JpaRepository<Construction, Integer> {
+    Construction getConstructionByConstructionId(int constructionId);
 }

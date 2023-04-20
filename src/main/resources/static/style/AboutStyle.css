@@ -18,6 +18,11 @@ nav a{
     display: inline-block;
     text-align: center;
 }
+.header img {
+    position: absolute;
+    top: 30px;
+    right: 50px;
+}
 nav .animation{
     position: absolute;
     height: 5px;
