@@ -1,34 +1,32 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: headerHead">
-    <title>Constructions</title>
+    <title>Съоръжение</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
 <div class="container">
     <div align="center">
-        <h1>Constructions</h1>
-        <form action="#" th:action="@{/constructions/edit}" method="post" th:object="${constructions}" class="form-control">
-            <label>First name:</label>
-            <input type="text" th:field="*{firstName}" class="form-control"/>
-            <br>
-            <label>Last name:</label>
-            <input type="text" th:field="*{lastName}" class="form-control"/>
-            <br>
-            <label>Phone number:</label>
-            <input type="text" th:field="*{phoneNumber}" class="form-control"/>
-            <br>
-            <label>Description:</label>
-            <input type="text" th:field="*{description}" class="form-control"/>
-            <br>
-            <label>Subject:</label>
-            <input type="hidden" th:field="*{userId}" class="form-control"/>
-            <br>
-            <input type="hidden" th:field="*{contactId}" class="form-control"/>
-            <br>
-            <button type="submit" class="btn btn-primary">Edit</button>
-
+        <h1>Редактирай съоръжение</h1>
+        <form action="#" th:action="@{/constructions/{constructionId}/update(constructionId=${construction.constructionId})}" th:object="${construction}" method="post">
+            <div>
+                <label for="firstName">Име:</label>
+                <input type="text" id="firstName" th:field="*{firstName}">
+            </div>
+            <div>
+                <label for="lastName">Фамилия:</label>
+                <input type="text" id="lastName" th:field="*{lastName}">
+            </div>
+            <div>
+                <label for="phoneNumber">Телефонен номер:</label>
+                <input type="text" id="phoneNumber" th:field="*{phoneNumber}">
+            </div>
+            <div>
+                <label for="description">Описание:</label>
+                <input type="text" id="description" th:field="*{description}">
+            </div>
+            <button type="submit">Запази</button>
         </form>
     </div>
 </div>

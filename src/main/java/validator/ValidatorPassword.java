@@ -3,6 +3,7 @@ package validator;
 import dto.UserDto;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import model.User;
 
 public class ValidatorPassword implements ConstraintValidator<ValidPassword, String> {
     @Override
@@ -12,7 +13,7 @@ public class ValidatorPassword implements ConstraintValidator<ValidPassword, Str
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        UserDto userDto = new UserDto();
-        return userDto.getPassword().equals(userDto.getPassword());
+        User user = new User();
+        return user.getPassword().equals(user.getPassword());
     }
 }

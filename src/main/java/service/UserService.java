@@ -15,40 +15,57 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User registerNewUser(UserDto userDto) throws UserAlreadyExistException {
-        if (emailExists(userDto.getEmail())) {
-            throw new UserAlreadyExistException("There is an existing account with this email address: "
-                    + userDto.getEmail());
-        }
-        User user = new User();
-        user.setFirstName(userDto.getFirstName());
-        user.setLastName(userDto.getLastName());
-        user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
-        user.setRoleId(userDto.getRoleId());
-        User updatedUser = userRepository.save(user);
-
-        return updatedUser;
+    public void updateUser(String firstName, String lastName, String email, String password, int roleId, int userId)
+    {
+        userRepository.update(firstName, lastName, email, password, roleId, userId);
     }
 
-    public User registerUserAsAdmin(AdminDto adminDto) throws UserAlreadyExistException {
-        if (emailExists(adminDto.getEmail())) {
-            throw new UserAlreadyExistException("There is an account with that email address: "
-                    + adminDto.getEmail());
-        }
-        User user = new User();
-        user.setFirstName(adminDto.getFirstName());
-        user.setLastName(adminDto.getLastName());
-        user.setEmail(adminDto.getEmail());
-        user.setPassword(adminDto.getPassword());
-        user.setRoleId(adminDto.getRoleId());
-
-        User updatedUser = userRepository.save(user);
-
+    public User saveUser(User user)
+    {
         return userRepository.save(user);
     }
 
-    private boolean emailExists(String email) {
-        return userRepository.getUserByEmail(email) != null;
+    public void deleteUser(User user)
+    {
+        userRepository.delete(user);
+    }
+
+    public User showUserById(int id)
+    {
+        return userRepository.findById(id).orElse(null);
+    }
+    public User showUserByRoleId(int id)
+    {
+        return (User) userRepository.findByRoleId(id).orElse(null);
+    }
+
+    public List<User> showUsers()
+    {
+        return userRepository.findAll();
+    }
+
+    public User findByEmail(String email)
+    {
+        return userRepository.findByEmail(email);
+    }
+
+    public User findByFirstName(String firstName)
+    {
+        return userRepository.findByFirstName(firstName);
+    }
+
+    public User findByLastName(String lastName)
+    {
+        return userRepository.findByLastName(lastName);
+    }
+
+    public boolean checkEmail(User user)
+    {
+        return userRepository.emailExists(user.getEmail());
+    }
+
+    public boolean checkPassword(User user, User loginUser)
+    {
+        return user.getPassword().equals(user.getPassword());
     }
 }

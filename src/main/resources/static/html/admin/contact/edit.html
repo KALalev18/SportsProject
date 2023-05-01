@@ -9,26 +9,24 @@
 <div class="container">
     <div align="center">
         <h1>Contacts</h1>
-        <form action="#" th:action="@{/contacts/edit}" method="post" th:object="${contact}" class="form-control">
-            <label>First name:</label>
-            <input type="text" th:field="*{firstName}" class="form-control"/>
-            <br>
-            <label>Last name:</label>
-            <input type="text" th:field="*{lastName}" class="form-control"/>
-            <br>
-            <label>Phone number:</label>
-            <input type="text" th:field="*{phoneNumber}" class="form-control"/>
-            <br>
-            <label>Subject:</label>
-            <input type="text" th:field="*{subject}" class="form-control"/>
-            <br>
-            <label>Subject:</label>
-            <input type="hidden" th:field="*{userId}" class="form-control"/>
-            <br>
-            <input type="hidden" th:field="*{contactId}" class="form-control"/>
-            <br>
-            <button type="submit" class="btn btn-primary">Edit</button>
-
+        <form action="#" th:action="@{/contacts/{contactId}/update(contactId=${contact.contactId})}" th:object="${contact}" method="post">
+            <div>
+                <label for="firstName">Име:</label>
+                <input type="text" id="firstName" th:field="*{firstName}">
+            </div>
+            <div>
+                <label for="lastName">Фамилия:</label>
+                <input type="text" id="lastName" th:field="*{lastName}">
+            </div>
+            <div>
+                <label for="phoneNumber">Телефонен номер:</label>
+                <input type="text" id="phoneNumber" th:field="*{phoneNumber}">
+            </div>
+            <div>
+                <label for="subject">Запитване:</label>
+                <input type="text" id="subject" th:field="*{subject}">
+            </div>
+            <button type="submit">Запази</button>
         </form>
     </div>
 </div>

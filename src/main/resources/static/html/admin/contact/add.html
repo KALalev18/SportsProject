@@ -1,33 +1,35 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: headerHead">
-    <title>Add Contact</title>
+    <title>Контакт</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
 <div class="container">
     <div align="center">
-        <h1>Contacts</h1>
-        <form action="#" th:action="@{/contacts/add}" method="post" th:object="${contact}" class="form-group">
-            <label>First name:</label>
-            <input type="text" th:field="*{firstName}" class="form-control"/>
-            <br>
-            <label>Last name:</label>
-            <input type="text" th:field="*{lastName}" class="form-control"/>
-            <br>
-            <label>Phone number:</label>
-            <input type="text" th:field="*{phoneNumber}" class="form-control"/>
-            <br>
-            <label>Subject:</label>
-            <input type="text" th:field="*{subject}" class="form-control"/>
-            <br>
-            <label>User id:</label>
-            <input type="hidden" th:field="*{userId}" class="form-control"/>
-            <br>
-            <input type="hidden" th:field="*{contactId}" class="form-control"/>
-            <br>
-            <button type="submit" class="btn btn-primary">Add</button>
+        <h1>Добави контакт</h1>
+        <form action="#" th:action="@{/contacts}" th:object="${contact}" method="post">
+            <p>
+                <label for="firstName">Име:</label>
+                <input type="text" id="firstName" th:field="*{firstName}" required>
+            </p>
+            <p>
+                <label for="lastName">Фамилия:</label>
+                <input type="text" id="lastName" th:field="*{lastName}" required>
+            </p>
+            <p>
+                <label for="phoneNumber">Телефон:</label>
+                <input type="text" id="phoneNumber" th:field="*{phoneNumber}" required>
+            </p>
+            <p>
+                <label for="subject">Запитване:</label>
+                <textarea id="subject" th:field="*{subject}" required></textarea>
+            </p>
+            <p>
+                <button type="submit">Запази</button>
+                <a href="/contacts">Cancel</a>
+            </p>
         </form>
     </div>
 </div>

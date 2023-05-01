@@ -1,37 +1,37 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: headerHead">
-    <title>Constructions</title>
+    <title>Съоръжения</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
 <div class="container">
-    <h1>Constructions</h1>
-    <a th:href="@{/constructions/add}" class="btn btn-primary">Add new</a>
+    <h1>Съоръжения</h1>
     <table class="table table-striped">
         <thead  class="thead-dark">
         <tr>
-            <th>Construction id</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Phone number</th>
-            <th>Description</th>
-            <th>User id</th>
-            <th>Actions</th>
+            <th>Съоръжение ID</th>
+            <th>Име</th>
+            <th>Фамилия</th>
+            <th>Телефонен номер</th>
+            <th>Описание</th>
+            <th>Потребителско ID</th>
+            <th>Действия</th>
         </tr>
         </thead>
-        <tr th:each="construction: ${constructions}">
+        <tr th:each="constructions: ${construction}">
             <td th:text="${construction.constructionId}" />
-            <td th:text="${contact.firstName}" />
-            <td th:text="${contact.lastName}" />
-            <td th:text="${contact.phoneNumber}" />
-            <td th:text="${contact.description}" />
-            <td th:text="${contact.userId}" />
+            <td th:text="${construction.firstName}" />
+            <td th:text="${construction.lastName}" />
+            <td th:text="${construction.phoneNumber}" />
+            <td th:text="${construction.description}" />
+            <td th:text="${construction.userId}" />
             <td>
-                <a th:href="@{/constructions/{constructionId}/(constructionId=${construction.constructionId})}" class="btn btn-primary">Details</a>
-                <a th:href="@{/constructions/edit/{constructionId}/(constructionId=${construction.constructionId})}" class="btn btn-warning">Edit</a>
-                <a th:href="@{/constructions/delete/{constructionId}/(constructionId=${construction.constructionId})}" class="btn btn-danger">Delete</a>
+                <a th:href="@{/constructions/{constructionId}/(constructionId=${construction.constructionId})}" class="btn btn-primary">Съоръжение по ID</a>
+                <a th:href="@{/constructions/add/{constructionId}/(constructionId=${construction.constructionId})}" class="btn btn-primary">Добави нов съоръжение</a>
+                <a th:href="@{/constructions/edit/{constructionId}/(constructionId=${construction.constructionId})}" class="btn btn-warning">Редактирай съоръжение</a>
+                <a th:href="@{/constructions/delete/{constructionId}/(constructionId=${construction.constructionId})}" class="btn btn-danger">Изтрий съоръжение</a>
             </td>
         </tr>
     </table>

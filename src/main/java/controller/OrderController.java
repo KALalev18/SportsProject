@@ -1,60 +1,71 @@
 package controller;
 
 import model.Order;
-import model.Product;
-import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import repository.OrderRepository;
-import repository.ProductRepository;
+import service.OrderService;
+
+import java.util.List;
 
 @Controller
+@RequestMapping("/orders")
 public class OrderController {
     @Autowired
-    private OrderRepository orderRepository;
+    private OrderService orderService;
 
-    @GetMapping("/orders")
-    public String index(Model model) {
-        model.addAttribute("orders", orderRepository.findAll());
+    @GetMapping("")
+    public String showAllOrders(Model model) {
+        List<Order> orders = orderService.showOrders();
+        model.addAttribute("orders", orders);
         return "orders/index";
     }
 
-    @GetMapping("/orders/{orderId}")
-    public String get(@PathVariable int orderId, Model model) {
-
-        orderRepository.findById(orderId).ifPresent(item -> model.addAttribute("item", item));
+    @GetMapping("/{orderId}")
+    public String showOrderDetails(@PathVariable int orderId, Model model) {
+        Order order = orderService.showOrderById(orderId);
+        model.addAttribute("order", order);
         return "orders/details";
     }
 
-    @GetMapping("/orders/add")
-    public String add(Model model) {
+    @GetMapping("/new")
+    public String showNewOrderForm(Model model) {
         Order order = new Order();
         model.addAttribute("order", order);
-        return "orders/add";
+        return "orders/new";
     }
 
-    @GetMapping("/products/edit/{orderId}")
-    public String edit(@PathVariable int orderId, Model model)
-    {
-        model.addAttribute("orderId", orderRepository.findById(orderId));
+    @PostMapping("")
+    public String saveOrder(@ModelAttribute("order") Order order) {
+        orderService.saveOrder(order);
+        return "redirect:/orders";
+    }
+
+    @GetMapping("/{orderId}/edit")
+    public String showEditOrderForm(@PathVariable int orderId, Model model) {
+        Order order = orderService.showOrderById(orderId);
+        model.addAttribute("order", order);
         return "orders/edit";
     }
 
-    @RequestMapping(value = "/orders/edit", method = RequestMethod.POST)
-    public ModelAndView edit(@ModelAttribute("order") Order order, Model model) {
-        model.addAttribute("item", order);
-        orderRepository.save(order);
-        return new ModelAndView("redirect:/orders");
+    @PostMapping("/{orderId}")
+    public String updateOrder(@PathVariable int orderId, @ModelAttribute("order") Order order) {
+        order.setOrderId(orderId);
+        orderService.saveOrder(order);
+        return "redirect:/orders";
     }
 
-    @GetMapping("/products/delete/{orderId}")
-    public ModelAndView delete(@PathVariable int orderId, Model model) throws ChangeSetPersister.NotFoundException {
-        Order order = orderRepository.findById(orderId).orElseThrow(() -> new ChangeSetPersister.NotFoundException());
-        orderRepository.delete(order);
-        return new ModelAndView("redirect:/products");
+    @GetMapping("/{orderId}/delete")
+    public String showDeleteOrderForm(@PathVariable int orderId, Model model) {
+        Order order = orderService.showOrderById(orderId);
+        model.addAttribute("order", order);
+        return "orders/delete";
+    }
+
+    @PostMapping("/{orderId}/delete")
+    public String deleteOrder(@PathVariable Order orderId) {
+        orderService.deleteOrder(orderId);
+        return "redirect:/orders";
     }
 }

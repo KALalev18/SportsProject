@@ -1,66 +1,71 @@
 package controller;
 
-import dto.AdminDto;
-import dto.UserDto;
 import jakarta.validation.Valid;
 import model.Product;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import repository.ProductRepository;
-import repository.UserRepository;
-import service.UserService;
+import service.ProductService;
+
+import java.util.List;
 
 @Controller
+@RequestMapping("/products")
 public class ProductController {
 
     @Autowired
-    private ProductRepository productRepository;
-
+    private ProductService productService;
 
     @GetMapping("/products")
-    public String index(Model model) {
-        model.addAttribute("products", productRepository.findAll());
-        return "products/index";
+    public String getAllProducts(Model model) {
+        List<Product> products = productService.showProducts();
+        model.addAttribute("products", products);
+        return "index";
     }
 
-    @GetMapping("/products/{productId}")
-    public String get(@PathVariable int productId, Model model) {
-
-        productRepository.findById(productId).ifPresent(item -> model.addAttribute("item", item));
-        return "products/details";
+    @GetMapping("/create-product")
+    public String showCreateProductForm(Product product) {
+        return "create-product";
     }
 
-    @GetMapping("/products/add")
-    public String add(Model model) {
-        Product product = new Product();
+    @PostMapping("/create-product")
+    public String createProduct(@Valid Product product, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "create-product";
+        }
+
+        productService.saveProduct(product);
+        model.addAttribute("products", productService.showProducts());
+        return "redirect:/products";
+    }
+
+    @GetMapping("/update-product/{productId}")
+    public String showUpdateProductForm(@PathVariable("productId") int productId, Model model) {
+        Product product = productService.showProductById(productId);
         model.addAttribute("product", product);
-        return "products/add";
+        return "update-product";
     }
 
-    @GetMapping("/products/edit/{productId}")
-    public String edit(@PathVariable int productId, Model model)
-    {
-        model.addAttribute("productId", productRepository.findById(productId));
-        return "products/edit";
+    @PostMapping("/update-product/{productId}")
+    public String updateProduct(@PathVariable("productId") int productId, @Valid Product product,
+                                BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            product.setProductId(productId);
+            return "update-product";
+        }
+
+        productService.saveProduct(product);
+        model.addAttribute("products", productService.showProducts());
+        return "redirect:/products";
     }
 
-    @RequestMapping(value = "/products/edit", method = RequestMethod.POST)
-    public ModelAndView edit(@ModelAttribute("product") Product product, Model model) {
-        model.addAttribute("item", product);
-        productRepository.save(product);
-        return new ModelAndView("redirect:/products");
-    }
-
-    @GetMapping("/products/delete/{productId}")
-    public ModelAndView delete(@PathVariable int productId, Model model) throws ChangeSetPersister.NotFoundException {
-        Product product = productRepository.findById(productId).orElseThrow(() -> new ChangeSetPersister.NotFoundException());
-        productRepository.delete(product);
-        return new ModelAndView("redirect:/products");
+    @PostMapping("/delete-product")
+    public String deleteProduct(@RequestParam("productId") Product productId, Model model) {
+        productService.deleteProduct(productId);
+        model.addAttribute("products", productService.showProducts());
+        return "redirect:/products";
     }
 }

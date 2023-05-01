@@ -1,59 +1,74 @@
 package controller;
 
+import jakarta.validation.Valid;
 import model.Contact;
-import model.Field;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import repository.ContactRepository;
-import repository.FieldRepository;
+
+import java.util.List;
 
 @Controller
+@RequestMapping("/contacts")
 public class ContactController {
     @Autowired
     private ContactRepository contactRepository;
 
-    @GetMapping("/contacts")
-    public String index(Model model) {
-        model.addAttribute("contacts", contactRepository.findAll());
-        return "contacts/index";
+    @GetMapping
+    public String getAllContacts(Model model) {
+        List<Contact> contacts = contactRepository.findAll();
+        model.addAttribute("contacts", contacts);
+        return "contact-list";
     }
 
-    @GetMapping("/contacts/{contactId}")
-    public String get(@PathVariable int contactId, Model model) {
-
-        contactRepository.findById(contactId).ifPresent(item -> model.addAttribute("item", item));
-        return "contacts/details";
-    }
-
-    @GetMapping("/contacts/add")
-    public String add(Model model) {
-        Contact contact = new Contact();
+    @GetMapping("/{contactId}")
+    public String getContactById(@PathVariable("id") int contactId, Model model) {
+        Contact contact = contactRepository.findById(contactId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid contact ID: " + contactId));
         model.addAttribute("contact", contact);
-        return "contacts/add";
+        return "contact-details";
     }
 
-    @GetMapping("/contacts/edit/{contactId}")
-    public String edit(@PathVariable int contactId, Model model)
-    {
-        model.addAttribute("contactId", contactRepository.findById(contactId));
-        return "contacts/edit";
+    @GetMapping("/new")
+    public String createContactForm(Model model) {
+        model.addAttribute("contact", new Contact());
+        return "contact-form";
     }
 
-    @RequestMapping(value = "/contacts/edit", method = RequestMethod.POST)
-    public ModelAndView edit(@ModelAttribute("contact") Contact contact, Model model) {
-        model.addAttribute("item", contact);
+    @PostMapping("/new")
+    public String createContact(@Valid Contact contact, BindingResult result) {
+        if (result.hasErrors()) {
+            return "contact-form";
+        }
         contactRepository.save(contact);
-        return new ModelAndView("redirect:/contacts");
+        return "redirect:/contacts";
     }
 
-    @GetMapping("/contacts/delete/{contactId}")
-    public ModelAndView delete(@PathVariable int contactId, Model model) throws ChangeSetPersister.NotFoundException {
-        Contact contact = contactRepository.findById(contactId).orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+    @GetMapping("/{contactId}/edit")
+    public String updateContactForm(@PathVariable("contactId") int contactId, Model model) {
+        Contact contact = contactRepository.findById(contactId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid contact ID: " + contactId));
+        model.addAttribute("contact", contact);
+        return "contact-form";
+    }
+
+    @PostMapping("/{contactId}/edit")
+    public String updateContact(@PathVariable("contactId") int contactId, @Valid Contact contact, BindingResult result) {
+        if (result.hasErrors()) {
+            return "contact-form";
+        }
+        contactRepository.save(contact);
+        return "redirect:/contacts/" + contactId;
+    }
+
+    @GetMapping("/{contactId}/delete")
+    public String deleteContact(@PathVariable("id") int contactId) {
+        Contact contact = contactRepository.findById(contactId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid contact ID: " + contactId));
         contactRepository.delete(contact);
-        return new ModelAndView("redirect:/contacts");
+        return "redirect:/contacts";
     }
 }

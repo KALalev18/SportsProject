@@ -12,12 +12,12 @@
     <table class="table table-striped">
         <thead  class="thead-dark">
         <tr>
-            <th>Field id</th>
-            <th>Field location</th>
-            <th>Start time</th>
-            <th>Finish time</th>
-            <th>Price</th>
-            <th>Actions</th>
+            <th>Игрище ID</th>
+            <th>Локация на игрище</th>
+            <th>Начало на работа</th>
+            <th>Край на работа</th>
+            <th>Цена за час</th>
+            <th>Действия</th>
         </tr>
         </thead>
         <tr th:each="field: ${fields}">
@@ -27,9 +27,10 @@
             <td th:text="${field.finishedWorkingTime}" />
             <td th:text="${field.priceByHour}" />
             <td>
-                <a th:href="@{/fields/{fieldId}/(fieldId=${field.fieldId})}" class="btn btn-primary">Details</a>
-                <a th:href="@{/fields/edit/{fieldId}/(fieldId=${field.fieldId})}" class="btn btn-warning">Edit</a>
-                <a th:href="@{/fields/delete/{fieldId}/(fieldId=${field.fieldId})}" class="btn btn-danger">Delete</a>
+                <a th:href="@{/fields/{fieldId}/(fieldId=${field.fieldId})}" class="btn btn-primary">Информация за игрище по ID</a>
+                <a th:href="@{/fields/add/{fieldId}/(fieldId=${field.fieldId})}" class="btn btn-primary">Добави ново игрище</a>
+                <a th:href="@{/fields/edit/{fieldId}/(fieldId=${field.fieldId})}" class="btn btn-warning">Редактирай по игрище</a>
+                <a th:href="@{/fields/delete/{fieldId}/(fieldId=${field.fieldId})}" class="btn btn-danger">Изтрий по ID</a>
             </td>
         </tr>
     </table>

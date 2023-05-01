@@ -6,7 +6,7 @@ import jakarta.validation.ConstraintValidatorContext;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ValidatorEmaill implements ConstraintValidator<ValidEmail, String>{
+public class ValidatorEmail implements ConstraintValidator<ValidEmail, String>{
     private static String REGEX_EMAIL_PATTERN = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\\\.[A-Za-z]{2,}$";
     private static Pattern PATTERN = Pattern.compile(REGEX_EMAIL_PATTERN);
 

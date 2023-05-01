@@ -1,30 +1,38 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: headerHead">
-    <title>Add Field</title>
+    <title>Игрище</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
 <div class="container">
     <div align="center">
-        <h1>Fields</h1>
-        <form action="#" th:action="@{/fields/add}" method="post" th:object="${field}" class="form-group">
-            <label>Location:</label>
-            <input type="text" th:field="*{fieldLocation}" class="form-control"/>
+        <h1>Добави игрище</h1>
+        <form th:object="${field}" th:action="@{/fields/new}" method="post">
+                <div>
+                    <label for="fieldLocation">Локация:</label>
+                    <input type="text" id="fieldLocation" th:field="*{fieldLocation}">
+                </div>
             <br>
-            <label>Start time:</label>
-            <input type="text" th:field="*{startedWorkingTime}" class="form-control"/>
+                <div>
+                    <label for="startedWorkingTime">Начало на работа:</label>
+                    <input type="text" id="startedWorkingTime" th:field="*{startedWorkingTime}">
+                </div>
             <br>
-            <label>Finish time:</label>
-            <input type="text" th:field="*{finishedWorkingTime}" class="form-control"/>
+                <div>
+                    <label for="finishedWorkingTime">Край на работа:</label>
+                    <input type="text" id="finishedWorkingTime" th:field="*{finishedWorkingTime}">
+                </div>
             <br>
-            <label>Price:</label>
-            <input type="text" th:field="*{priceByHour}" class="form-control"/>
+                <div>
+                    <label for="priceByHour">Цена на час:</label>
+                    <input type="number" min="0" id="priceByHour" th:field="*{priceByHour}">
+                </div>
             <br>
-            <input type="hidden" th:field="*{fieldId}" class="form-control"/>
-            <br>
-            <button type="submit" class="btn btn-primary">Add</button>
+                <div>
+                    <input type="submit" value="Add Field">
+                </div>
         </form>
     </div>
 </div>

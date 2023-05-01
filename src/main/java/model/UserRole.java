@@ -27,11 +27,24 @@ public class UserRole {
         this.roleId = roleId;
     }
 
-    public String getRoleName() {
+    public String getRoleName(String roleName) {
         return roleName;
     }
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    public void checkRole(String roleName)
+    {
+        try{
+            if (roleName == "User" || roleName == "Admin")
+            {
+                throw new Exception("User has the required role.");
+            }
+            System.out.println("User does not have the required role.");
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 }

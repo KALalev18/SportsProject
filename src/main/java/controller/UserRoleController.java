@@ -1,6 +1,5 @@
 package controller;
 
-import model.Order;
 import model.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import repository.OrderRepository;
 import repository.UserRoleRepository;
 
 @Controller

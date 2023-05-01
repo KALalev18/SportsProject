@@ -2,6 +2,11 @@ package model;
 
 import jakarta.persistence.*;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 @Entity
 @Table(name = "Users")
 public class User {
@@ -79,4 +84,5 @@ public class User {
     public void setRoleId(UserRole roleId) {
         this.roleId = roleId;
     }
+
 }

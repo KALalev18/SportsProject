@@ -8,24 +8,22 @@
 <div th:replace="fragments/header :: header"></div>
 <div class="container">
     <div align="center">
-        <h1>Fields</h1>
-        <form action="#" th:action="@{/fields/edit}" method="post" th:object="${field}" class="form-control">
-            <label>Location:</label>
-            <input type="text" th:field="*{fieldLocation}" class="form-control"/>
-            <br>
-            <label>Start time:</label>
-            <input type="text" th:field="*{startedWorkingTime}" class="form-control"/>
-            <br>
-            <label>Finish time:</label>
-            <input type="text" th:field="*{finishedWorkingTime}" class="form-control"/>
-            <br>
-            <label>Price:</label>
-            <input type="text" th:field="*{priceByHour}" class="form-control"/>
-            <br>
-            <input type="hidden" th:field="*{fieldId}" class="form-control"/>
-            <br>
-            <button type="submit" class="btn btn-primary">Edit</button>
-
+        <h1>Редактирай игрище</h1>
+        <form method="post" th:action="@{/fields/edit}" th:object="${field}">
+            <input type="hidden" th:field="*{fieldId}"/>
+            <label>Локация:</label>
+            <input type="text" th:field="*{location}"/>
+            <br/><br/>
+            <label>Начало на работа:</label>
+            <input type="text" th:field="*{startedWorkingTime}"/>
+            <br/><br/>
+            <label>Край на работа:</label>
+            <input type="text" th:field="*{finishedWorkingTime}"/>
+            <br/><br/>
+            <label>Цена на час:</label>
+            <input type="number" step="0.01" min="0" th:field="*{priceByHour}"/>
+            <br/><br/>
+            <button type="submit">Редактирай</button>
         </form>
     </div>
 </div>
