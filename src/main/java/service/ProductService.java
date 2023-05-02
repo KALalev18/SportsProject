@@ -1,11 +1,9 @@
 package service;
 
 import model.Product;
-import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repository.ProductRepository;
-import repository.UserRepository;
 
 import java.util.List;
 
@@ -17,6 +15,11 @@ public class ProductService {
     public Product saveProduct(Product product)
     {
         return productRepository.save(product);
+    }
+
+    public void updateProduct(String productName, float productPrice, String productDescription, int productId)
+    {
+        productRepository.update(productName, productPrice, productDescription, productId);
     }
 
     public void deleteProduct(Product product)

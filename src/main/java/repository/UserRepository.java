@@ -10,17 +10,11 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-    public User findByFirstName(String firstName);
-    public User findByLastName(String lastName);
-    public User findByEmail(String email);
-    public boolean emailExists(String email);
-    @Query("UPDATE Users " +
-            "SET FirstName=:firstName, " +
-            "LastName=:lastName, " +
-            "Email=:email, " +
-            "Password=:password, " +
-            "RoleId=:roleId " +
-            "WHERE UserId=:userId", nativeQuery = true)
+    User findByFirstName(String firstName);
+    User findByLastName(String lastName);
+    User findByEmail(String email);
+    boolean emailExists(String email);
+
     void update(String firstName, String lastName, String email, String password, int roleId, int userId);
 
     Optional<Object> findByRoleId(int id);

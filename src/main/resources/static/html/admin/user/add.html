@@ -11,27 +11,27 @@
 <div class="container">
   <div align="center">
     <h1>Добави потребител</h1>
-    <form method="post" action="/create-user">
+    <form action="#" method="post" th:action="@{/users/create-user/{userId}}" th:object="${user}">
 
-      <label for="firstname">Име:</label>
-      <input type="text" id="firstname" name="firstname" required/><br><br>
+      <label>Име:</label>
+      <input type="text" th:field="*{users.firstName}" required/><br><br>
 
-      <label for="lastname">Фамилия:</label>
-      <input type="text" id="lastname" name="lastname" required/><br><br>
+      <label>Фамилия:</label>
+      <input type="text" th:field="*{users.lastName}" required/><br><br>
 
-      <label for="email">Имейл:</label>
-      <input type="text" id="email" name="email" required/><br><br>
+      <label>Имейл:</label>
+      <input type="text" th:field="*{users.email}" required/><br><br>
 
-      <label for="password">Парола:</label>
-      <input type="text" id="password" name="password" required/><br><br>
+      <label>Парола:</label>
+      <input type="text" th:field="*{users.password}" required/><br><br>
 
-      <label for="roleId" id="roleId" name="roleId" >Роля ID:</label>
-      <select th:field="*{roleId}" class="form-control" required>
+      <label>Роля ID:</label>
+      <select th:field="*{roleId}" required>
         <option value="1">Admin</option>
         <option value="2">User</option>
       </select>
       <br><br>
-      <input type="submit" value="Submit"/>
+      <input type="submit" value="Добавяне"/>
     </form>
   </div>
 </div>

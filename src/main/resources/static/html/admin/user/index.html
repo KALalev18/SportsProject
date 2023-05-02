@@ -3,16 +3,15 @@
 <head th:replace="fragments/header :: headerHead">
   <title>Потребители</title>
   <link rel="stylesheet" href="../style/AboutStyle.css">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
 <div class="container">
   <h1>Потребители</h1>
-
-  <table class="table table-striped">
-    <thead  class="thead-dark">
+  <a th:href="@{/users/create-user/{userId}}">Добавяне на нов</a>
+  <table>
+    <thead>
     <tr>
       <th>Потребителско ID</th>
       <th>Име</th>
@@ -31,10 +30,10 @@
       <td th:text="${user.password}" />
       <td th:text="${user.roleId}" />
       <td>
-        <a th:href="@{/users/{userId}/(userId=${user.userId})}" class="btn btn-primary">Потребителска информация по ID</a>
-        <a th:href="@{/users/add/{userId}/(userId=${user.userId})}" class="btn btn-primary">Добави нов потребител</a>
-        <a th:href="@{/users/edit/{userId}/(userId=${user.userId})}" class="btn btn-warning">Редактирай потребител</a>
-        <a th:href="@{/users/delete/{userId}/(userId=${user.userId})}" class="btn btn-danger">Изтрий потребител по ID</a>
+        <a th:href="@{/users/{userId}/(userId=${user.userId})}">Потребителска информация по ID</a>
+        <a th:href="@{/users/create-user/{userId}/(userId=${user.userId})}">Добави нов потребител</a>
+        <a th:href="@{/users/update-user/{userId}/(userId=${user.userId})}">Редактирай потребител</a>
+        <a th:href="@{/users/delete-user/{userId}/(userId=${user.userId})}">Изтрий потребител по ID</a>
       </td>
     </tr>
   </table>

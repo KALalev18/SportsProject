@@ -8,9 +8,9 @@
 <div th:replace="fragments/header :: header"></div>
 <div class="container">
     <h1>Contacts</h1>
-    <a th:href="@{/contacts/add}" class="btn btn-primary">Add new</a>
-    <table class="table table-striped">
-        <thead  class="thead-dark">
+    <a th:href="@{/contacts/new/{contactId}}">Добави нов</a>
+    <table>
+        <thead>
         <tr>
             <th>Контакт ID</th>
             <th>Име</th>
@@ -29,10 +29,10 @@
             <td th:text="${contact.subject}" />
             <td th:text="${contact.userId}" />
             <td>
-                <a th:href="@{/contacts/{contactId}/(contactId=${contact.contactId})}" class="btn btn-primary">Контакт по ID</a>
-                <a th:href="@{/contacts/add/{contactId}/(contactId=${contact.contactId})}" class="btn btn-primary">Добави нов контакт</a>
-                <a th:href="@{/contacts/edit/{contactId}/(contactId=${contact.contactId})}" class="btn btn-warning">Редактирай контакт</a>
-                <a th:href="@{/contacts/delete/{contactId}/(contactId=${contact.contactId})}" class="btn btn-danger">Изтрий контакт по ID</a>
+                <a th:href="@{/contacts/{contactId}/(contactId=${contact.contactId})}">Контакт по ID</a>
+                <a th:href="@{/contacts/new/{contactId}/(contactId=${contact.contactId})}">Добави нов контакт</a>
+                <a th:href="@{/contacts/edit/{contactId}/(contactId=${contact.contactId})}">Редактирай контакт</a>
+                <a th:href="@{/contacts/delete/{contactId}/(contactId=${contact.contactId})}">Изтрий контакт по ID</a>
             </td>
         </tr>
     </table>

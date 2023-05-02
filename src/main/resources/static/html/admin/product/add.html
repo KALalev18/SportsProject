@@ -9,21 +9,18 @@
 <div class="container">
     <div align="center">
         <h1>Добави продукт</h1>
-        <form th:object="${product}" method="post" th:action="@{/create-product}">
+        <form th:object="${product}" method="post" th:action="@{/products/create-product/{productId}}">
             <div>
-                <label for="productName">Име:</label>
-                <input type="text" id="productName" name="productName" th:field="*{productName}" required><br><br>
-                <span th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}"></span>
+                <label>Име:</label>
+                <input type="text" th:field="*{products.productName}" required><br><br>
             </div>
             <div>
-                <label for="productPrice">Цена:</label>
-                <input type="text" id="productPrice" name="productPrice" th:field="*{productPrice}" required><br><br>
-                <span th:if="${#fields.hasErrors('productPrice')}" th:errors="*{productPrice}"></span>
+                <label>Цена:</label>
+                <input type="text" th:field="*{products.productPrice}" required><br><br>
             </div>
             <div>
-                <label for="productDescription">Описание:</label>
-                <textarea id="productDescription" name="productDescription" th:field="*{productDescription}" required></textarea><br><br>
-                <span th:if="${#fields.hasErrors('productDescription')}" th:errors="*{productDescription}"></span>
+                <label>Описание:</label>
+                <textarea th:field="*{products.productDescription}" required></textarea><br><br>
             </div>
             <button type="submit">Добави</button>
         </form>

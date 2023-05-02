@@ -9,23 +9,13 @@
 <div class="container">
     <div align="center">
         <h1>Редактирай продукт</h1>
-        <form th:object="${product}" method="post" th:action="@{/update-product}">
-            <input type="hidden" id="productId" name="productId" th:field="*{productId}">
-            <div>
-                <label for="productName">Име:</label>
-                <input type="text" id="productName" name="productName" th:field="*{productName}"><br><br>
-                <span th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}"></span>
-            </div>
-            <div>
-                <label for="productPrice">Цена:</label>
-                <input type="text" id="productPrice" name="productPrice" th:field="*{productPrice}"><br><br>
-                <span th:if="${#fields.hasErrors('productPrice')}" th:errors="*{productPrice}"></span>
-            </div>
-            <div>
-                <label for="productDescription">Описание:</label>
-                <textarea id="productDescription" name="productDescription" th:field="*{productDescription}"></textarea><br><br>
-                <span th:if="${#fields.hasErrors('productDescription')}" th:errors="*{productDescription}"></span>
-            </div>
+        <form th:object="${product}" method="post" th:action="@{/products/update-product/{productId}}">
+                <label>Име:</label>
+                <input type="text" th:field="${productName}" required><br><br>
+                <label>Цена:</label>
+                <input type="text" th:field="${productPrice}" required><br><br>
+                <label>Описание:</label>
+                <textarea th:field="${productDescription}" required></textarea><br><br>
             <button type="submit">Запази</button>
         </form>
     </div>

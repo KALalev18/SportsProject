@@ -9,28 +9,21 @@
 <div class="container">
     <div align="center">
         <h1>Добави съоръжение</h1>
-        <form action="#" th:action="@{/constructions}" th:object="${construction}" method="post">
-            <p>
-                <label for="firstName">Име:</label>
-                <input type="text" id="firstName" th:field="*{firstName}" required>
-            </p>
-            <p>
-                <label for="lastName">Фамилия:</label>
-                <input type="text" id="lastName" th:field="*{lastName}" required>
-            </p>
-            <p>
-                <label for="phoneNumber">Телефон:</label>
-                <input type="text" id="phoneNumber" th:field="*{phoneNumber}" required>
-            </p>
-            <p>
-                <label for="description">Описание:</label>
-                <textarea id="description" th:field="*{description}" required></textarea>
-            </p>
-            <p>
+        <form action="#" th:action="@{/constructions/add/{constructionId}}" th:object="${construction}" method="post">
+                <label>Име:</label>
+                <input type="text" th:field="*{constructions.firstName}" required><br><br>
+
+                <label>Фамилия:</label>
+                <input type="text" th:field="*{constructions.lastName}" required><br><br>
+
+                <label>Телефон:</label>
+                <input type="text" th:field="*{constructions.phoneNumber}" required><br><br>
+
+                <label>Описание:</label>
+                <textarea th:field="*{construction.description}" required></textarea><br><br>
+
                 <button type="submit">Запази</button>
-                <br>
-                <a href="/constructions">Cancel</a>
-            </p>
+
         </form>
     </div>
 </div>

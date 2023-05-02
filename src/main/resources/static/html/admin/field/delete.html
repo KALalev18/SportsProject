@@ -8,9 +8,9 @@
 <div class="container">
     <div align="center">
         <h1>Изтрий игрище</h1>
-        <form method="post" action="fields/{id}/delete">
-            <label for="userId">Игрище ID:</label>
-            <input type="text" id="userId" name="userId" th:value="${field.fieldId}" required><br><br>
+        <form action="#" method="post" th:action="@{/fields/delete/{fieldId}}" th:object="${field}">
+            <label>Игрище ID:</label>
+            <input type="text" th:value="${fields.fieldId}" required><br><br>
             <button type="submit">Изтрий</button>
         </form>
     </div>

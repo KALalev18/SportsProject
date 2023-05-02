@@ -7,28 +7,32 @@
   <link rel="stylesheet" href="../style/LoginRegisterStyle.css">
 </head>
 <body>
-<h1><center>Sign up</center></h1>
+<h1><center>Регистрация</center></h1>
 <div class="container">
   <form>
-    <label for="fname">First Name</label>
-    <input type="text" id="fname" name="firstname" placeholder="Your name..." required>
+    <label>Име</label>
+    <input type="text" placeholder="Напишете вашето име..." required>
 
-    <label for="lname">Last Name</label>
-    <input type="text" id="lname" name="lastname" placeholder="Your last name..." required>
+    <label>Фамилия</label>
+    <input type="text" placeholder="Напишете вашата фамилия..." required>
 
-    <label for="email">Email</label>
-    <input type="text" id="email" name="email" placeholder="Your email..." required>
+    <label>Имейл</label>
+    <input type="text" id="email" name="email" placeholder="Напишете вашия имейл..." required>
 
-    <label for="pass">Password</label>
-    <input type="text" id="pass" name="phone" placeholder="Your password..." required>
+    <label for="password">Парола</label>
+    <input type="password" id="password" placeholder="Напишете вашата парола..." required>
 
-    <label for="pass">Repeat Password</label>
-    <input type="text" placeholder="Your password..." required>
+    <label for="confirm-password">Повтори парола</label>
+    <input type="password" id="confirm-password" onchange="checkPasswordMatch()" placeholder="Повторете паролата..." required>
+
+    <p id="password-match"></p>
 
     <button>Sign Up</button>
-    <center><a href="../html/login.html" class="button">Already have an account? Go to login page.</a></center>
+    <center><a href="../html/login.html" class="button">Ако имаш потребителски акаунт влез тук!</a></center>
+    <br>
+    <center><a href="../html/adminLogin.html">Ако си админ влез тук!</a></center>
   </form>
 </div>
-<script src="../js/RegisteredUser.js"></script>
+<script src="../js/PasswordMatch.js"></script>
 </body>
 </html>

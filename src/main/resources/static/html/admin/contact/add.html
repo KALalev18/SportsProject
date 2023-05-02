@@ -9,27 +9,20 @@
 <div class="container">
     <div align="center">
         <h1>Добави контакт</h1>
-        <form action="#" th:action="@{/contacts}" th:object="${contact}" method="post">
-            <p>
-                <label for="firstName">Име:</label>
-                <input type="text" id="firstName" th:field="*{firstName}" required>
-            </p>
-            <p>
-                <label for="lastName">Фамилия:</label>
-                <input type="text" id="lastName" th:field="*{lastName}" required>
-            </p>
-            <p>
-                <label for="phoneNumber">Телефон:</label>
-                <input type="text" id="phoneNumber" th:field="*{phoneNumber}" required>
-            </p>
-            <p>
-                <label for="subject">Запитване:</label>
-                <textarea id="subject" th:field="*{subject}" required></textarea>
-            </p>
-            <p>
+        <form action="#" th:action="@{/contacts/add/{contactId}}" th:object="${contact}" method="post">
+                <label>Име:</label>
+                <input type="text" th:field="*{contacts.firstName}" required><br><br>
+
+                <label>Фамилия:</label>
+                <input type="text" th:field="*{contacts.lastName}" required><br><br>
+
+                <label>Телефон:</label>
+                <input type="text" th:field="*{contacts.phoneNumber}" required><br><br>
+
+                <label>Запитване:</label>
+                <textarea th:field="*{contacts.subject}" required></textarea><br><br>
+
                 <button type="submit">Запази</button>
-                <a href="/contacts">Cancel</a>
-            </p>
         </form>
     </div>
 </div>

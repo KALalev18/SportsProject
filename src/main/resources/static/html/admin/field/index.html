@@ -1,16 +1,16 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: headerHead">
-    <title>Fields</title>
+    <title>Игрища</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
 <div class="container">
     <h1>Fields</h1>
-    <a th:href="@{/fields/add}" class="btn btn-primary">Add new</a>
-    <table class="table table-striped">
-        <thead  class="thead-dark">
+    <a th:href="@{/fields/new/{fieldId}}">Добави ново</a>
+    <table>
+        <thead>
         <tr>
             <th>Игрище ID</th>
             <th>Локация на игрище</th>
@@ -27,10 +27,10 @@
             <td th:text="${field.finishedWorkingTime}" />
             <td th:text="${field.priceByHour}" />
             <td>
-                <a th:href="@{/fields/{fieldId}/(fieldId=${field.fieldId})}" class="btn btn-primary">Информация за игрище по ID</a>
-                <a th:href="@{/fields/add/{fieldId}/(fieldId=${field.fieldId})}" class="btn btn-primary">Добави ново игрище</a>
-                <a th:href="@{/fields/edit/{fieldId}/(fieldId=${field.fieldId})}" class="btn btn-warning">Редактирай по игрище</a>
-                <a th:href="@{/fields/delete/{fieldId}/(fieldId=${field.fieldId})}" class="btn btn-danger">Изтрий по ID</a>
+                <a th:href="@{/fields/{fieldId}/(fieldId=${field.fieldId})}">Информация за игрище по ID</a>
+                <a th:href="@{/fields/new/{fieldId}/(fieldId=${field.fieldId})}">Добави ново игрище</a>
+                <a th:href="@{/fields/edit/{fieldId}/(fieldId=${field.fieldId})}">Редактирай по игрище</a>
+                <a th:href="@{/fields/delete/{fieldId}/(fieldId=${field.fieldId})}">Изтрий по ID</a>
             </td>
         </tr>
     </table>

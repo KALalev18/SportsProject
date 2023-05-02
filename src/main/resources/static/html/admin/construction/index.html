@@ -8,8 +8,8 @@
 <div th:replace="fragments/header :: header"></div>
 <div class="container">
     <h1>Съоръжения</h1>
-    <table class="table table-striped">
-        <thead  class="thead-dark">
+    <table>
+        <thead>
         <tr>
             <th>Съоръжение ID</th>
             <th>Име</th>
@@ -28,10 +28,10 @@
             <td th:text="${construction.description}" />
             <td th:text="${construction.userId}" />
             <td>
-                <a th:href="@{/constructions/{constructionId}/(constructionId=${construction.constructionId})}" class="btn btn-primary">Съоръжение по ID</a>
-                <a th:href="@{/constructions/add/{constructionId}/(constructionId=${construction.constructionId})}" class="btn btn-primary">Добави нов съоръжение</a>
-                <a th:href="@{/constructions/edit/{constructionId}/(constructionId=${construction.constructionId})}" class="btn btn-warning">Редактирай съоръжение</a>
-                <a th:href="@{/constructions/delete/{constructionId}/(constructionId=${construction.constructionId})}" class="btn btn-danger">Изтрий съоръжение</a>
+                <a th:href="@{/constructions/{constructionId}/(constructionId=${construction.constructionId})}">Съоръжение по ID</a>
+                <a th:href="@{/constructions/new/{constructionId}/(constructionId=${construction.constructionId})}">Добави нов съоръжение</a>
+                <a th:href="@{/constructions/edit/{constructionId}/(constructionId=${construction.constructionId})}">Редактирай съоръжение</a>
+                <a th:href="@{/constructions/delete/{constructionId}/(constructionId=${construction.constructionId})}">Изтрий съоръжение</a>
             </td>
         </tr>
     </table>

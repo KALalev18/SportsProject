@@ -9,9 +9,9 @@
 <div th:replace="fragments/header :: header"></div>
 <div class="container">
     <h1>Продукти</h1>
-    <a th:href="@{/products/add}" class="btn btn-primary">Add new</a>
-    <table class="table table-striped">
-        <thead  class="thead-dark">
+    <a th:href="@{/products/create-product/{productId}}">Добави нов</a>
+    <table>
+        <thead>
         <tr>
             <th>Продуктово ID</th>
             <th>Име на продукт</th>
@@ -26,10 +26,10 @@
             <td th:text="${product.productPrice}" />
             <td th:text="${product.productDescription}" />
             <td>
-                <a th:href="@{/products/{productId}/(productId=${product.productId})}" class="btn btn-primary">Продуктова информация по ID:</a>
-                <a th:href="@{/products/add/{productId}/(productId=${product.productId})}" class="btn btn-primary">Добави нов продукт</a>
-                <a th:href="@{/products/edit/{productId}/(productId=${product.productId})}" class="btn btn-warning">Редактирай продукт</a>
-                <a th:href="@{/products/delete/{productId}/(productId=${product.productId})}" class="btn btn-danger">Изтрий продукт по ID</a>
+                <a th:href="@{/products/{productId}/(productId=${product.productId})}">Продуктова информация по ID</a>
+                <a th:href="@{/products/create-product/{productId}/(productId=${product.productId})}">Добави нов продукт</a>
+                <a th:href="@{/products/update-product/{productId}/(productId=${product.productId})}">Редактирай продукт</a>
+                <a th:href="@{/products/delete-product/{productId}/(productId=${product.productId})}">Изтрий продукт</a>
             </td>
         </tr>
     </table>

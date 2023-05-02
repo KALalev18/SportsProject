@@ -11,7 +11,7 @@ public class Admin {
     private int AdminId;
     @Column(name = "Email", columnDefinition = "nvarchar(50)", nullable = false)
     private String email;
-    @Column(name = "AdminId", columnDefinition = "nvarchar(50)", nullable = false)
+    @Column(name = "Password", columnDefinition = "nvarchar(50)", nullable = false)
     private String password;
     @OneToOne
     @JoinColumn(name = "RoleId")

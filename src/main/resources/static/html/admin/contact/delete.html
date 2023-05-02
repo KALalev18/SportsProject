@@ -8,9 +8,9 @@
 <div class="container">
     <div align="center">
         <h1>Изтрий контакт</h1>
-        <form method="post" action="/{contactId}/delete">
-            <label for="contactId">Контакт ID:</label>
-            <input type="text" id="contactId" name="contactId" th:value="${contact.contactId}" required><br><br>
+        <form action="#" method="post" th:action="@{/contacts/delete/{contactId}}" th:object="${contact}">
+            <label>Контакт ID:</label>
+            <input type="text" th:value="*{contact.contactId}" required><br><br>
             <button type="submit">Изтрий</button>
         </form>
     </div>

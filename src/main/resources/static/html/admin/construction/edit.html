@@ -9,24 +9,20 @@
 <div class="container">
     <div align="center">
         <h1>Редактирай съоръжение</h1>
-        <form action="#" th:action="@{/constructions/{constructionId}/update(constructionId=${construction.constructionId})}" th:object="${construction}" method="post">
-            <div>
-                <label for="firstName">Име:</label>
-                <input type="text" id="firstName" th:field="*{firstName}">
-            </div>
-            <div>
-                <label for="lastName">Фамилия:</label>
-                <input type="text" id="lastName" th:field="*{lastName}">
-            </div>
-            <div>
-                <label for="phoneNumber">Телефонен номер:</label>
-                <input type="text" id="phoneNumber" th:field="*{phoneNumber}">
-            </div>
-            <div>
-                <label for="description">Описание:</label>
-                <input type="text" id="description" th:field="*{description}">
-            </div>
-            <button type="submit">Запази</button>
+        <form action="#" th:action="@{/constructions/update/{constructionId}}" th:object="${construction}" method="post">
+                <label>Име:</label>
+                <input type="text" th:field="${constructions.firstName}"><br><br>
+
+                <label>Фамилия:</label>
+                <input type="text" th:field="${constructions.lastName}"><br><br>
+
+                <label>Телефонен номер:</label>
+                <input type="text" th:field="${constructions.phoneNumber}"><br><br>
+
+                <label>Описание:</label>
+                <input type="text" th:field="${constructions.description}"><br><br>
+
+                <button type="submit">Запази</button>
         </form>
     </div>
 </div>
