@@ -8,21 +8,21 @@
 <div th:replace="fragments/header :: header"></div>
 <div class="container">
     <div align="center">
-        <h1>Контакти</h1>
+        <h1>Редактирай контакти</h1>
         <form action="#" th:action="@{/contacts/update/{contactId}}" th:object="${contact}" method="post">
-                <label>Име:</label>
-                <input type="text" th:field="${firstName}"><br><br>
+            <label>Име:</label>
+            <input type="text" th:field="${firstName}"><br><br>
 
-                <label>Фамилия:</label>
-                <input type="text" th:field="${lastName}"><br><br>
+            <label>Фамилия:</label>
+            <input type="text" th:field="${lastName}"><br><br>
 
-                <label>Телефонен номер:</label>
-                <input type="text" th:field="${phoneNumber}"><br><br>
+            <label>Телефонен номер:</label>
+            <input type="text" th:field="${phoneNumber}"><br><br>
 
-                <label>Запитване:</label>
-                <input type="text" th:field="${subject}"><br><br>
+            <label>Запитване:</label>
+            <input type="text" th:field="${subject}"><br><br>
 
-                <button type="submit">Запази</button>
+            <button type="submit">Запази</button>
         </form>
     </div>
 </div>

@@ -10,19 +10,19 @@
     <div align="center">
         <h1>Редактирай съоръжение</h1>
         <form action="#" th:action="@{/constructions/update/{constructionId}}" th:object="${construction}" method="post">
-                <label>Име:</label>
-                <input type="text" th:field="${constructions.firstName}"><br><br>
+            <label>Име:</label>
+            <input type="text" th:field="${constructions.firstName}"><br><br>
 
-                <label>Фамилия:</label>
-                <input type="text" th:field="${constructions.lastName}"><br><br>
+            <label>Фамилия:</label>
+            <input type="text" th:field="${constructions.lastName}"><br><br>
 
-                <label>Телефонен номер:</label>
-                <input type="text" th:field="${constructions.phoneNumber}"><br><br>
+            <label>Телефонен номер:</label>
+            <input type="text" th:field="${constructions.phoneNumber}"><br><br>
 
-                <label>Описание:</label>
-                <input type="text" th:field="${constructions.description}"><br><br>
+            <label>Описание:</label>
+            <input type="text" th:field="${constructions.description}"><br><br>
 
-                <button type="submit">Запази</button>
+            <button type="submit">Запази</button>
         </form>
     </div>
 </div>

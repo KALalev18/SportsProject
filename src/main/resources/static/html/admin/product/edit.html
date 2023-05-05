@@ -10,12 +10,12 @@
     <div align="center">
         <h1>Редактирай продукт</h1>
         <form th:object="${product}" method="post" th:action="@{/products/update-product/{productId}}">
-                <label>Име:</label>
-                <input type="text" th:field="${productName}" required><br><br>
-                <label>Цена:</label>
-                <input type="text" th:field="${productPrice}" required><br><br>
-                <label>Описание:</label>
-                <textarea th:field="${productDescription}" required></textarea><br><br>
+            <label>Име:</label>
+            <input type="text" th:field="${productName}" required><br><br>
+            <label>Цена:</label>
+            <input type="text" th:field="${productPrice}" required><br><br>
+            <label>Описание:</label>
+            <textarea th:field="${productDescription}" required></textarea><br><br>
             <button type="submit">Запази</button>
         </form>
     </div>
