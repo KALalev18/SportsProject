@@ -1,16 +1,26 @@
 function search() {
-    let filter = document.getElementById('find').value.toUpperCase();
-    let item = document.querySelectorAll('.product');
-    let l = document.getElementsByTagName('h1');
-    for(var i = 0;i<=l.length;i++){
-        let a=item[i].getElementsByTagName('h1')[0];
-        let value=a.innerHTML || a.innerText || a.textContent;
-        if(value.toUpperCase().indexOf(filter) > -1) {
-            item[i].style.display="";
+    var query = document.getElementById("search").value;
+
+    var content = document.getElementById("content").innerHTML;
+
+    var re = new RegExp(query, "gi");
+    var matches = content.match(re);
+
+    var count = matches ? matches.length : 0;
+
+    var results = document.getElementById("results");
+    if (count > 0) {
+        results.innerHTML = "Search results for '" + query + "' (" + count + " matches):<br>" + matches.join("<br>");
+        var firstMatch = document.getElementById("content").querySelector("[data-match='true']");
+        if (firstMatch) {
+            firstMatch.scrollIntoView();
         }
-        else
-        {
-            item[i].style.display="none";
-        }
+    } else {
+        results.innerHTML = "Няма резултат за '" + query + "'.";
     }
 }
+
+document.querySelector("form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    search();
+});

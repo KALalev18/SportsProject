@@ -27,12 +27,27 @@
 
     <p id="password-match"></p>
 
-    <button>Sign Up</button>
-    <center><a href="../html/login.html" class="button">Ако имаш потребителски акаунт влез тук!</a></center>
+    <button class="button" type="button" id="submit-btn">Регистрирай се</button>
+    <center><a href="../html/login.html">Ако имаш потребителски акаунт влез тук!</a></center>
     <br>
     <center><a href="../html/adminLogin.html">Ако си админ влез тук!</a></center>
   </form>
 </div>
 <script src="../js/PasswordMatch.js"></script>
+<script>
+  var submitBtn = document.getElementById("submit-btn");
+
+  submitBtn.addEventListener("click", function() {
+    var emailInput = document.getElementById("email");
+    var passwordInput = document.getElementById("password");
+
+    if (passwordInput.value && emailInput.value) {
+      console.log("Полетата са запълнени.");
+      window.location.href = "../html/login.html";
+    } else {
+      alert("Моля запълнете полетата.");
+    }
+  });
+</script>
 </body>
 </html>

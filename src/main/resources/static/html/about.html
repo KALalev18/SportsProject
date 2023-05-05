@@ -9,15 +9,21 @@
 <body>
 
 <div class="header">
-    <h1>Sports</h1>
+    <h1>Спорт</h1>
     <form>
-        <input type="text" id="searchInput" placeholder="Търси...">
-        <button type="button" id="searchBtn">Търси</button>
+        <input type="text" id="search" name="search" placeholder="Търси...">
+        <button type="submit">Търси</button>
     </form>
-
     <div id="results"></div>
-    <img src="../img/user.png" widgth="100" height="100">
-    <br>
+    <div class="img-container">
+    <div style="top: -150px; position: relative;"><img src="../img/user.png" widgth="100" height="100"></div>
+    <div class="tooltip">
+        <a href="../html/adminLogin.html">Влез като админ</a>
+        <a href="../html/login.html">Излез</a>
+    </div>
+</div>
+</div>
+<br>
 </div>
 
 <nav>
@@ -28,10 +34,9 @@
     <a href="about.html">За нас</a>
     <div class="animation start-home"></div>
 </nav>
-
 <br>
 <center><h3>Обратна връзка</h3></center>
-
+<div id="content">
 <div class="container">
     <form>
         <label for="fname">Име</label>
@@ -49,10 +54,10 @@
         <label for="subject">Обратна връзка</label>
         <textarea id="subject" name="subject" placeholder="Напишете обратна връзка..." style="height:200px"></textarea>
 
-        <input type="submit" value="Submit">
+        <input type="submit" value="Предай">
     </form>
 </div>
-
+</div>
 
 
 <script src="../js/Search.js"></script>

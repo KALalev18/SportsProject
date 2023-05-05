@@ -15,14 +15,26 @@
         <input type="text" id="email" name="email" placeholder="Напишете вашия имейл..." required>
 
         <label for="pass">Парола</label>
-        <input type="text" id="pass" name="phone" placeholder="Напишете вашата парола..." required>
+        <input type="password" id="pass" name="phone" placeholder="Напишете вашата парола..." required>
 
-        <button>Log in</button>
+        <button class="button" type="button" id="submit-btn">Влез</button>
         <br>
-        <center><a href="../user/index.html">Нямаш потребителски акаунт? Регистрирай се!</a></center>
-        <br><br>
     </form>
 </div>
+<script>
+    var submitBtn = document.getElementById("submit-btn");
 
+    submitBtn.addEventListener("click", function() {
+        var emailInput = document.getElementById("email");
+        var passwordInput = document.getElementById("password");
+
+        if (passwordInput.value && emailInput.value) {
+            console.log("Полетата са запълнени.");
+            window.location.href = "../html/admin/user/index.html";
+        } else {
+            alert("Моля запълнете полетата.");
+        }
+    });
+</script>
 </body>
 </html>
