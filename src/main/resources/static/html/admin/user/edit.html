@@ -5,33 +5,29 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<div th:replace="fragments/header :: header"></div>
-<div class="container">
-  <div align="center">
     <h1>Редактирай потребител</h1>
-    <form action="#" method="post" th:action="@{/users/update-user/{userId}}" th:object="${user}">
+    <form action="/users/{userId}/edit(userId=${user.userId})" method="post" th:object="${user}">
+      <input type="hidden" name="userId" th:value="*{userId}">
       <label>Име:</label>
-      <input type="text" th:field="${firstName}" required>
+      <input type="text" name="firstName" th:field="*{firstName}" required>
       <br><br>
       <label>Фамилия:</label>
-      <input type="text" th:field="${lastName}" required>
+      <input type="text" name="lastName" th:field="*{lastName}" required>
       <br><br>
       <label>Имейл:</label>
-      <input type="text" th:field="${email}" required>
+      <input type="text" name="email" th:field="*{email}" required>
       <br><br>
       <label>Парола:</label>
-      <input type="text" th:field="${password}" required>
+      <input type="text" name="password" th:field="*{password}" required>
       <br><br>
       <label>Роля ID:</label>
-      <input type="text" th:field="${roleId}" required>
-      <option value="1">Админ</option>
-      <option value="2">Потребител</option>
+      <select name="roleId" th:field="*{roleId}" required>
+        <option value="1">Админ</option>
+        <option value="2">Потребител</option>
       </select>
       <br><br>
-      <button type="submit">Редактирай</button>
-
+      <input type="submit" value="Редактирай">
     </form>
-  </div>
-</div>
+    <a href="/users">Върни се</a>
 </body>
 </html>

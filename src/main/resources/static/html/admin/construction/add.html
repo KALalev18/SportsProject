@@ -6,26 +6,22 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<div class="container">
-    <div align="center">
         <h1>Добави съоръжение</h1>
-        <form action="#" th:action="@{/constructions/add/{constructionId}}" th:object="${construction}" method="post">
-            <label>Име:</label>
-            <input type="text" th:field="*{constructions.firstName}" required><br><br>
+        <form action="/constructions/new" method="post" th:object="${construction}">
+                <label>Име:</label>
+                <input type="text" name="firstName" th:field="*{firstName}" required><br><br>
 
-            <label>Фамилия:</label>
-            <input type="text" th:field="*{constructions.lastName}" required><br><br>
+                <label>Фамилия:</label>
+                <input type="text" name="lastName" th:field="*{lastName}" required><br><br>
 
-            <label>Телефон:</label>
-            <input type="text" th:field="*{constructions.phoneNumber}" required><br><br>
+                <label>Телефон:</label>
+                <input type="text"name="phoneNumber" th:field="*{phoneNumber}" required><br><br>
 
-            <label>Описание:</label>
-            <textarea th:field="*{construction.description}" required></textarea><br><br>
+                <label>Описание:</label>
+                <textarea name="description" th:field="*{description}" required></textarea><br><br>
 
-            <button type="submit">Запази</button>
-
+                <button type="submit">Запази</button>
         </form>
-    </div>
-</div>
+        <a href="/constructions">Върни се</a>
 </body>
 </html>

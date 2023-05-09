@@ -6,7 +6,7 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<div class="container">
+    <a th:href="@{/constructions/new/}">Добави нов</a>
     <h1>Съоръжения</h1>
     <table>
         <thead>
@@ -20,7 +20,7 @@
             <th>Действия</th>
         </tr>
         </thead>
-        <tr th:each="constructions: ${construction}">
+        <tr th:each="constructions: ${constructionList}">
             <td th:text="${construction.constructionId}" />
             <td th:text="${construction.firstName}" />
             <td th:text="${construction.lastName}" />
@@ -28,14 +28,10 @@
             <td th:text="${construction.description}" />
             <td th:text="${construction.userId}" />
             <td>
-                <a th:href="@{/constructions/{constructionId}/(constructionId=${construction.constructionId})}">Съоръжение по ID</a>
-                <a th:href="@{/constructions/new/{constructionId}/(constructionId=${construction.constructionId})}">Добави нов съоръжение</a>
-                <a th:href="@{/constructions/edit/{constructionId}/(constructionId=${construction.constructionId})}">Редактирай съоръжение</a>
-                <a th:href="@{/constructions/delete/{constructionId}/(constructionId=${construction.constructionId})}">Изтрий съоръжение</a>
+                <a th:href="@{/constructions/{constructionId}/edit(constructionId=${construction.constructionId})}">Редактирай съоръжение</a>
+                <a th:href="@{/constructions/{constructionId}/delete(constructionId=${construction.constructionId})}">Изтрий съоръжение</a>
             </td>
         </tr>
     </table>
-</div>
-</div>
 </body>
 </html>

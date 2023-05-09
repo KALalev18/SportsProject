@@ -2,12 +2,14 @@ package controller;
 
 import jakarta.validation.Valid;
 import model.Product;
-import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import service.ProductService;
 
 import java.util.List;
@@ -19,53 +21,57 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/products")
-    public String getAllProducts(Model model) {
-        List<Product> products = productService.showProducts();
-        model.addAttribute("products", products);
-        return "index";
+    @GetMapping("")
+    public String listProducts(Model model) {
+        List<Product> productList = productService.getAllProducts();
+        model.addAttribute("productList", productList);
+        return "productList/list";
     }
 
-    @GetMapping("/create-product")
-    public String showCreateProductForm(Product product) {
-        return "create-product";
-    }
-
-    @PostMapping("/create-product")
-    public String createProduct(@Valid Product product, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "create-product";
-        }
-
-        productService.saveProduct(product);
-        model.addAttribute("products", productService.showProducts());
-        return "redirect:/products";
-    }
-
-    @GetMapping("/update-product/{productId}")
-    public String showUpdateProductForm(@PathVariable("productId") int productId, Model model) {
-        Product product = productService.showProductById(productId);
+    @GetMapping("/new")
+    public String showCreateProductForm(Model model) {
+        Product product = new Product();
         model.addAttribute("product", product);
-        return "update-product";
+        return "product/create";
     }
 
-    @PostMapping("/update-product/{productId}")
-    public String updateProduct(@PathVariable("productId") int productId, @Valid Product product,
-                                BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            product.setProductId(productId);
-            return "update-product";
+    @PostMapping("/new")
+    public String createProduct(@Valid Product product, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "product/create";
+        } else {
+            productService.createProduct(product);
+            return "redirect:/products";
         }
-
-        productService.saveProduct(product);
-        model.addAttribute("products", productService.showProducts());
-        return "redirect:/products";
     }
 
-    @PostMapping("/delete-product")
-    public String deleteProduct(@RequestParam("productId") Product productId, Model model) {
-        productService.deleteProduct(productId);
-        model.addAttribute("products", productService.showProducts());
-        return "redirect:/products";
+    @GetMapping("/{productId}/edit")
+    public String showEditUserForm(@PathVariable("productId") int productId, Model model) {
+        Product product = productService.getProductById(productId);
+        model.addAttribute("product", product);
+        return "product/edit";
+    }
+
+    @PostMapping("/{productId}/edit")
+    public String updateProduct(@PathVariable("productId") int productId, @Valid Product product,
+                             BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "product/edit";
+        } else {
+            product.setProductId(productId);
+            productService.updateProduct(product);
+            return "redirect:/products";
+        }
+    }
+
+    @GetMapping("/{productId}/delete")
+    public String deleteProduct(@PathVariable("userId") int productId) {
+        productService.deleteProductById(productId);
+        return "redirect:/users";
+    }
+    @PostMapping("/{productId}/delete")
+    public String delete(@PathVariable("productId") int productId) {
+        productService.deleteProductById(productId);
+        return "redirect:/users";
     }
 }

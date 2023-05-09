@@ -6,19 +6,16 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<div class="container">
-    <div align="center">
         <h1>Редактирай продукт</h1>
-        <form th:object="${product}" method="post" th:action="@{/products/update-product/{productId}}">
-            <label>Име:</label>
-            <input type="text" th:field="${productName}" required><br><br>
-            <label>Цена:</label>
-            <input type="text" th:field="${productPrice}" required><br><br>
-            <label>Описание:</label>
-            <textarea th:field="${productDescription}" required></textarea><br><br>
-            <button type="submit">Запази</button>
+        <form action="/products/{productId}/edit(productId=${product.productId})" method="post" th:object="${product}">
+                <input type="hidden" name="productId" th:value="*{productId}">
+                <label>Име:</label>
+                <input type="text" name="productName" th:field="*{productName}" required><br><br>
+                <label>Цена:</label>
+                <input type="text" name="productPrice" th:field="*{productPrice}" required><br><br>
+                <label>Описание:</label>
+                <textarea name="productDescription" th:field="*{productDescription}" required></textarea><br><br>
+            <input type="submit">Запази</input>
         </form>
-    </div>
-</div>
 </body>
 </html>

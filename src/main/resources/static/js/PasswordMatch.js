@@ -4,8 +4,8 @@ function checkPasswordMatch() {
     var passwordMatch = document.getElementById("password-match");
 
     if (password.value != confirmPassword.value) {
-        passwordMatch.innerHTML = "Passwords do not match.";
+        passwordMatch.innerHTML = "Паролите не съвпадат.";
     } else {
-        passwordMatch.innerHTML = "Passwords match!";
+        passwordMatch.innerHTML = "Паролите съвпадат.";
     }
 }

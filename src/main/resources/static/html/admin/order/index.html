@@ -6,9 +6,8 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<div class="container">
     <h1>Поръчка</h1>
-    <a th:href="@{/orders/new/{orderId}}">Добави нова</a>
+    <a th:href="@{/orders/new/}">Добави нова</a>
     <table>
         <thead>
         <tr>
@@ -20,22 +19,17 @@
             <th>Действия</th>
         </tr>
         </thead>
-        <tr th:each="order: ${orders}">
+        <tr th:each="order: ${orderList}">
             <td th:text="${order.orderId}" />
             <td th:text="${user.userId}" />
             <td th:text="${product.productId}" />
             <td th:text="${order.productQuantity}" />
             <td th:text="${order.totalPrice}" />
             <td>
-                <a th:href="@{/orders/{orderId}/(orderId=${order.orderId})}">Поръчкова информация по ID</a>
-                <a th:href="@{/orders/new/{orderId}/(orderId=${order.orderId})}">Добави нов поръчка</a>
-                <a th:href="@{/orders/edit/{orderId}/(orderId=${order.orderId})}">Редактирай поръчка</a>
-                <a th:href="@{/orders/delete/{orderId}/(orderId=${order.orderId})}">Изтрий поръчка по ID</a>
-
+                <a th:href="@{/orders/{orderId}/edit(orderId=${order.orderId})}">Редактирай поръчка</a>
+                <a th:href="@{/orders/{orderId}/delete(orderId=${order.orderId})}">Изтрий поръчка по ID</a>
             </td>
         </tr>
     </table>
-</div>
-</div>
 </body>
 </html>

@@ -2,12 +2,16 @@ package controller;
 
 import jakarta.validation.Valid;
 import model.Construction;
+import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import repository.ConstructionRepository;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import service.ConstructionService;
 
 import java.util.List;
 
@@ -15,60 +19,59 @@ import java.util.List;
 @RequestMapping("/constructions")
 public class ConstructionController {
     @Autowired
-    private ConstructionRepository constructionRepository;
+    private ConstructionService constructionService;
 
-    @GetMapping("/")
-    public String getAllConstruction(Model model) {
-        List<Construction> constructions = constructionRepository.findAll();
-        model.addAttribute("constructions", constructions);
-        return "construction-list";
-    }
-
-    @GetMapping("/{constructionId}")
-    public String getConstructionById(@PathVariable("constructionId") int constructionId, Model model) {
-        Construction construction = constructionRepository.findById(constructionId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid construction ID: " + constructionId));
-        model.addAttribute("construction", construction);
-        return "construction-details";
+    @GetMapping("")
+    public String listUsers(Model model) {
+        List<Construction> constructionList = constructionService.getAllConstructions();
+        model.addAttribute("constructionList", constructionList);
+        return "construction/list";
     }
 
     @GetMapping("/new")
-    public String createConstructionForm(Model model) {
-        model.addAttribute("construction", new Construction());
-        return "construction-form";
+    public String showCreateUserForm(Model model) {
+        User construction = new User();
+        model.addAttribute("construction", construction);
+        return "construction/create";
     }
 
     @PostMapping("/new")
-    public String createConstruction(@Valid Construction construction, BindingResult result) {
-        if (result.hasErrors()) {
-            return "construction-form";
+    public String createUser(@Valid Construction construction, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "construction/create";
+        } else {
+            constructionService.createConstruction(construction);
+            return "redirect:/constructions";
         }
-        constructionRepository.save(construction);
-        return "redirect:/constructions";
     }
 
     @GetMapping("/{constructionId}/edit")
-    public String updateConstructionForm(@PathVariable("constructionId") int constructionId, Model model) {
-        Construction construction = constructionRepository.findById(constructionId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid construction ID: " + constructionId));
+    public String showEditUserForm(@PathVariable("constructionId") int constructionId, Model model) {
+        Construction construction = constructionService.getConstructionById(constructionId);
         model.addAttribute("construction", construction);
-        return "construction-form";
+        return "construction/edit";
     }
 
     @PostMapping("/{constructionId}/edit")
-    public String updateConstruction(@PathVariable("constructionId") int constructionId, @Valid Construction construction, BindingResult result) {
-        if (result.hasErrors()) {
-            return "construction-form";
+    public String updateUser(@PathVariable("constructionId") int constructionId, @Valid Construction construction,
+                             BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "construction/edit";
+        } else {
+            construction.setConstructionId(constructionId);
+            constructionService.updateConstruction(construction);
+            return "redirect:/constructions";
         }
-        constructionRepository.save(construction);
-        return "redirect:/constructions/" + constructionId;
     }
 
     @GetMapping("/{constructionId}/delete")
-    public String deleteConstruction(@PathVariable("constructionId") int constructionId) {
-        Construction construction = constructionRepository.findById(constructionId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid construction ID: " + constructionId));
-        constructionRepository.delete(construction);
+    public String deleteUser(@PathVariable("constructionId") int constructionId) {
+        constructionService.deleteConstructionById(constructionId);
+        return "redirect:/constructions";
+    }
+    @PostMapping("/{constructionId}/delete")
+    public String delete(@PathVariable("constructionId") int constructionId) {
+        constructionService.deleteConstructionById(constructionId);
         return "redirect:/constructions";
     }
 }

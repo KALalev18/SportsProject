@@ -1,60 +1,74 @@
 package controller;
 
+import jakarta.validation.Valid;
 import model.User;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import repository.UserRepository;
+import service.UserService;
 
 @Controller
 @RequestMapping("/users")
-public class UserController{
+public class UserController {
+
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
-    @GetMapping("/")
-    public String index(Model model) {
-        List<User> users = userRepository.findAll();
-        model.addAttribute("users", users);
-        return "index";
+    @GetMapping("")
+    public String listUsers(Model model) {
+        List<User> userList = userService.getAllUsers();
+        model.addAttribute("userList", userList);
+        return "user/list";
     }
 
-    @GetMapping("/create-user")
-    public String createUserForm(Model model) {
-        model.addAttribute("user", new User());
-        return "create-user";
+    @GetMapping("/new")
+    public String showCreateUserForm(Model model) {
+        User user = new User();
+        model.addAttribute("user", user);
+        return "user/create";
     }
 
-    @PostMapping("/create-user")
-    public String createUser(@ModelAttribute User user) {
-        userRepository.save(user);
-        return "redirect:/";
-    }
-
-    @GetMapping("/update-user/{id}")
-    public String updateUserForm(@PathVariable("id") int id, Model model) {
-        Optional<User> userOptional = userRepository.findById(id);
-        if (((Optional<?>) userOptional).isPresent()) {
-            User user = userOptional.get();
-            model.addAttribute("user", user);
-            return "update-user";
+    @PostMapping("/new")
+    public String createUser(@Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "user/create";
         } else {
-            return "redirect:/";
+            userService.createUser(user);
+            return "redirect:/users";
         }
     }
 
-    @PostMapping("/update-user")
-    public String updateUser(@ModelAttribute User user) {
-        userRepository.save(user);
-        return "redirect:/";
+    @GetMapping("/{userId}/edit")
+    public String showEditUserForm(@PathVariable("userId") int userId, Model model) {
+        User user = userService.getUserById(userId);
+        model.addAttribute("user", user);
+        return "user/edit";
     }
 
-    @PostMapping("/delete-user")
-    public String deleteUser(@RequestParam("userId") int userId) {
-        userRepository.deleteById(userId);
-        return "redirect:/";
+    @PostMapping("/{userId}/edit")
+    public String updateUser(@PathVariable("userId") int userId, @Valid User user,
+                             BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "user/edit";
+        } else {
+            user.setUserId(userId);
+            userService.updateUser(user);
+            return "redirect:/users";
+        }
+    }
+
+    @GetMapping("/{userId}/delete")
+    public String deleteUser(@PathVariable("userId") int userId) {
+        userService.deleteUserById(userId);
+        return "redirect:/users";
+    }
+    @PostMapping("/{userId}/delete")
+    public String delete(@PathVariable("userId") int userId) {
+        userService.deleteUserById(userId);
+        return "redirect:/users";
     }
 }
+

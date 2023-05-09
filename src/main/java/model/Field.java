@@ -71,28 +71,4 @@ public class Field {
     public void setPriceByHour(float priceByHour) {
         this.priceByHour = priceByHour;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Field field = (Field) o;
-        return fieldId == field.fieldId && fieldLocation == field.fieldLocation && finishedWorkingTime == field.finishedWorkingTime && Float.compare(field.priceByHour, priceByHour) == 0 && Objects.equals(startedWorkingTime, field.startedWorkingTime);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(fieldId, fieldLocation, startedWorkingTime, finishedWorkingTime, priceByHour);
-    }
-
-    @Override
-    public String toString() {
-        return "Field{" +
-                "fieldId=" + fieldId +
-                ", fieldLocation=" + fieldLocation +
-                ", startedWorkingTime='" + startedWorkingTime + '\'' +
-                ", finishedWorkingTime=" + finishedWorkingTime +
-                ", priceByHour=" + priceByHour +
-                '}';
-    }
 }

@@ -10,7 +10,7 @@ function search() {
 
     var results = document.getElementById("results");
     if (count > 0) {
-        results.innerHTML = "Search results for '" + query + "' (" + count + " matches):<br>" + matches.join("<br>");
+        results.innerHTML = "Резултат '" + query + "' (" + count + " пъти):<br>" + matches.join("<br>");
         var firstMatch = document.getElementById("content").querySelector("[data-match='true']");
         if (firstMatch) {
             firstMatch.scrollIntoView();

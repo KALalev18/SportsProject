@@ -1,57 +1,48 @@
 package controller;
 
+import jakarta.validation.Valid;
 import model.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import repository.UserRoleRepository;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import service.RoleService;
+
+import java.util.List;
 
 @Controller
+@RequestMapping("/roles")
 public class UserRoleController {
     @Autowired
-    private UserRoleRepository userRoleRepository;
+    private RoleService roleService;
 
-    @GetMapping("/userroles")
-    public String index(Model model) {
-        model.addAttribute("userroles", userRoleRepository.findAll());
-        return "userroles/index";
+    @GetMapping("")
+    public String listRoles(Model model) {
+        List<UserRole> userList = roleService.getAllRoles();
+        model.addAttribute("userList", userList);
+        return "userList/list";
     }
 
-    @GetMapping("/userroles/{roleId}")
-    public String get(@PathVariable int roleId, Model model) {
-
-        userRoleRepository.findById(roleId).ifPresent(item -> model.addAttribute("item", item));
-        return "userroles/details";
+    @GetMapping("/{roleId}/edit")
+    public String showEditRoleForm(@PathVariable("roleId") int roleId, Model model) {
+        UserRole userRole = roleService.getRoleById(roleId);
+        model.addAttribute("userRole", userRole);
+        return "userRole/edit";
     }
 
-    @GetMapping("/userroles/add")
-    public String add(Model model) {
-        UserRole userRole = new UserRole();
-        model.addAttribute("userrole", userRole);
-        return "userroles/add";
-    }
-
-    @GetMapping("/userroles/edit/{roleId}")
-    public String edit(@PathVariable int roleId, Model model)
-    {
-        model.addAttribute("roleId", userRoleRepository.findById(roleId));
-        return "userroles/edit";
-    }
-
-    @RequestMapping(value = "/userroles/edit", method = RequestMethod.POST)
-    public ModelAndView edit(@ModelAttribute("userrole") UserRole userRole, Model model) {
-        model.addAttribute("item", userRole);
-        userRoleRepository.save(userRole);
-        return new ModelAndView("redirect:/userroles");
-    }
-
-    @GetMapping("/userroles/delete/{roleId}")
-    public ModelAndView delete(@PathVariable int roleId, Model model) throws ChangeSetPersister.NotFoundException {
-        UserRole userRole = userRoleRepository.findById(roleId).orElseThrow(() -> new ChangeSetPersister.NotFoundException());
-        userRoleRepository.delete(userRole);
-        return new ModelAndView("redirect:/products");
+    @PostMapping("/{roleId}/edit")
+    public String updateRole(@PathVariable("roleId") int roleId, @Valid UserRole userRole,
+                             BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "userRole/edit";
+        } else {
+            userRole.setRoleId(roleId);
+            roleService.updateRole(userRole);
+            return "redirect:/users";
+        }
     }
 }

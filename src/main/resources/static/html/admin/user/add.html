@@ -1,39 +1,33 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: headerHead">
+<head>
   <title>Потребител</title>
-  <link rel="stylesheet" href="../style/AboutStyle.css">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<div th:replace="fragments/header :: header"></div>
-<div class="container">
-  <div align="center">
     <h1>Добави потребител</h1>
-    <form action="#" method="post" th:action="@{/users/create-user/{userId}}" th:object="${user}">
+    <form action="/users/new" method="post" th:object="${user}">
 
       <label>Име:</label>
-      <input type="text" th:field="*{users.firstName}" required/><br><br>
+      <input type="text" name="firstName" th:field="*{firstName}" required><br><br>
 
       <label>Фамилия:</label>
-      <input type="text" th:field="*{users.lastName}" required/><br><br>
+      <input type="text" name="lastName" th:field="*{lastName}" required/><br><br>
 
       <label>Имейл:</label>
-      <input type="text" th:field="*{users.email}" required/><br><br>
+      <input type="text" name="email" th:field="*{email}" required/><br><br>
 
       <label>Парола:</label>
-      <input type="text" th:field="*{users.password}" required/><br><br>
+      <input type="text" name="password" th:field="*{password}" required/><br><br>
 
       <label>Роля ID:</label>
-      <select th:field="*{roleId}" required>
+      <select name="roleId" th:field="*{roleId}" required>
         <option value="1">Admin</option>
         <option value="2">User</option>
       </select>
       <br><br>
       <input type="submit" value="Добавяне"/>
     </form>
-  </div>
-</div>
+    <a href="/products">Върни се</a>
 </body>
 </html>

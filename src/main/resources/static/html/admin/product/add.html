@@ -6,25 +6,21 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<div class="container">
-    <div align="center">
         <h1>Добави продукт</h1>
-        <form th:object="${product}" method="post" th:action="@{/products/create-product/{productId}}">
+        <form action="/products/new" method="post" th:object="${product}">
             <div>
                 <label>Име:</label>
-                <input type="text" th:field="*{products.productName}" required><br><br>
+                <input type="text" name="productName" th:field="*{productName}" required><br><br>
             </div>
             <div>
                 <label>Цена:</label>
-                <input type="text" th:field="*{products.productPrice}" required><br><br>
+                <input type="text" name="productPrice" th:field="*{productPrice}" required><br><br>
             </div>
             <div>
                 <label>Описание:</label>
-                <textarea th:field="*{products.productDescription}" required></textarea><br><br>
+                <textarea name="productDescription" th:field="*{productDescription}" required></textarea><br><br>
             </div>
             <button type="submit">Добави</button>
         </form>
-    </div>
-</div>
 </body>
 </html>
